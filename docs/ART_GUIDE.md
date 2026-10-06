@@ -48,13 +48,20 @@ Clubs and spades share `monster.N` art today. To give spades a different look la
 
 ### Weapons (attack 2–10)
 
-| Key        | Name          | Key              | Name                   |
-| ---------- | ------------- | ---------------- | ---------------------- |
-| `weapon.2` | Broken Bottle | `weapon.7`       | Coach Gun              |
-| `weapon.3` | Bowie Knife   | `weapon.8`       | Lever-Action Rifle     |
-| `weapon.4` | Pickaxe       | `weapon.9`       | Silver-Bullet Revolver |
-| `weapon.5` | Derringer     | `weapon.10`      | Blessed Buffalo Rifle  |
-| `weapon.6` | Six-Shooter   | `weapon.default` | fallback               |
+No firearms. Weapons are magic-touched frontier objects from the same setting as the Weird West Bounty Hunter game, so its item art can be reused. The last column is the matching file in `bountygame/public/assets/items/`, where one exists.
+
+| Key              | Name                    | Element     | Bounty Hunter art            |
+| ---------------- | ----------------------- | ----------- | ---------------------------- |
+| `weapon.2`       | Thorned Spur            | Physical    | `thorned-spur.png`           |
+| `weapon.3`       | Silver Pocket Knife     | Physical    | `silver-pocket-knife.png`    |
+| `weapon.4`       | Hot Coal                | Fire        | `hot-coal.png`               |
+| `weapon.5`       | Static Horseshoe        | Electricity | `static-horseshoe.png`       |
+| `weapon.6`       | Rusty Hatchet           | Physical    | `rusty-hatchet.png`          |
+| `weapon.7`       | Lightning Rod Fragment  | Electricity | `lightning-rod-fragment.png` |
+| `weapon.8`       | Storm Jar               | Electricity | `storm-jar.png`              |
+| `weapon.9`       | Hellfire Branding Iron  | Fire        | not made yet                 |
+| `weapon.10`      | Thunderhead in a Bottle | Electricity | not made yet                 |
+| `weapon.default` | fallback                |             |                              |
 
 ### Remedies (heal 2–10)
 

@@ -109,74 +109,208 @@ function monster(value: number): string {
   );
 }
 
-// ------------------------------------------------------------------ weapons
+// ------------------------------------------------------------------ weapons (no firearms)
 
+/**
+ * Magic-touched frontier objects, matching the Bounty Hunter setting: physical,
+ * fire and electric items that get stranger and stronger as the value rises.
+ */
 function weapon(value: number): string {
-  const t = (value - 2) / 8;
-  const metal = ramp(['#6e665c', '#9aa3ab', '#d7dee6', '#f4d27a'], t);
-  const wood = ramp(['#5a3a22', '#7a4a26', '#3b2416'], t);
+  const INK = '#14100c';
+  const wood = '#6a4426';
+  const ember = '#ff7a2a';
+  const spark = '#8fd3ff';
+  const bolt = (d: string, w = 4) =>
+    `<path d="${d}" fill="none" stroke="${spark}" stroke-width="${w * 2.2}" stroke-opacity="0.35" stroke-linejoin="round"/>` +
+    `<path d="${d}" fill="none" stroke="#e8f6ff" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"/>`;
   const parts: string[] = [];
-  if (value >= 9) parts.push(`<circle cx="0" cy="0" r="96" fill="url(#glow)"/>`);
+  let glow: string | null = null;
+  let rot = 0;
+  // Per-item framing: offset and size multiplier so each silhouette fills its tile.
+  let dx = 0;
+  let dy = 0;
+  let k = 1;
 
-  if (value === 2) {
-    // Broken bottle
-    parts.push(
-      `<path d="M-14,60 L-14,10 Q-14,-6 -6,-14 L-6,-34 L6,-34 L6,-14 Q14,-6 14,10 L14,60 Z" transform="rotate(180)" fill="#5d8a4a" stroke="#14100c" stroke-width="4" opacity="0.9"/>`,
-      `<path d="M-14,-60 L-8,-72 L-2,-62 L4,-78 L9,-64 L14,-70 L14,-60 Z" fill="#5d8a4a" stroke="#14100c" stroke-width="3"/>`,
-    );
-  } else if (value <= 4) {
-    // Knife (3) / pickaxe (4)
-    if (value === 3) {
+  switch (value) {
+    case 2: {
+      // Thorned Spur: heel band, shank and a thorny rowel
+      rot = -10;
+      k = 1.15;
+      dx = 8;
+      dy = -14;
+      const band = 'M-70,-30 Q-70,30 -10,30 Q40,30 40,-30';
       parts.push(
-        `<path d="M-10,-10 L-10,-78 Q0,-92 10,-70 L10,-10 Z" fill="${metal}" stroke="#14100c" stroke-width="4"/>`,
-        `<rect x="-22" y="-12" width="44" height="10" rx="3" fill="#8a6a3a" stroke="#14100c" stroke-width="3"/>`,
-        `<rect x="-9" y="-2" width="18" height="56" rx="6" fill="${wood}" stroke="#14100c" stroke-width="4"/>`,
+        `<path d="${band}" fill="none" stroke="${INK}" stroke-width="20" stroke-linecap="round"/>`,
+        `<path d="${band}" fill="none" stroke="#a89474" stroke-width="12" stroke-linecap="round"/>`,
+        `<path d="M-14,30 L40,52" stroke="${INK}" stroke-width="10" stroke-linecap="round"/>`,
+        `<path d="M-14,30 L40,52" stroke="#8a7a62" stroke-width="5" stroke-linecap="round"/>`,
       );
-    } else {
+      for (let i = 0; i < 8; i++) {
+        const a = (i / 8) * Math.PI * 2;
+        const pt = (ang: number, r: number) =>
+          `${(50 + Math.cos(ang) * r).toFixed(1)},${(56 + Math.sin(ang) * r).toFixed(1)}`;
+        parts.push(
+          `<path d="M${pt(a, 8)} L${pt(a + 0.2, 30)} L${pt(a + 0.4, 8)} Z" fill="#5d7a3a" stroke="${INK}" stroke-width="2.5"/>`,
+        );
+      }
       parts.push(
-        `<rect x="-7" y="-50" width="14" height="120" rx="5" fill="${wood}" stroke="#14100c" stroke-width="4"/>`,
-        `<path d="M-74,-38 Q0,-80 74,-38 L66,-30 Q0,-58 -66,-30 Z" fill="${metal}" stroke="#14100c" stroke-width="4"/>`,
+        `<circle cx="50" cy="56" r="10" fill="#8a7a62" stroke="${INK}" stroke-width="3"/>`,
       );
+      for (const [x, y] of [
+        [-66, -6],
+        [-48, 22],
+        [24, 18],
+      ]) {
+        parts.push(
+          `<path d="M${x},${y} l-10,-8 l12,2 Z" fill="#5d7a3a" stroke="${INK}" stroke-width="2"/>`,
+        );
+      }
+      break;
     }
-  } else {
-    // Firearms: barrel length grows; 7 adds a second barrel, 8+ adds a stock.
-    const barrel = lerp(48, 110, (value - 5) / 5);
-    const g: string[] = [];
-    if (value >= 8) {
-      g.push(
-        `<path d="M-30,-6 L-96,10 L-100,34 L-30,18 Z" fill="${wood}" stroke="#14100c" stroke-width="4"/>`,
+
+    case 3: // Silver Pocket Knife
+      rot = 35;
+      k = 1.15;
+      parts.push(
+        `<path d="M-12,-6 L-12,-80 Q6,-96 16,-64 L16,-6 Z" fill="#e6edf3" stroke="${INK}" stroke-width="4"/>`,
+        `<path d="M-3,-14 L-3,-70" stroke="#ffffff" stroke-width="3" stroke-opacity="0.8"/>`,
+        `<rect x="-13" y="-8" width="26" height="78" rx="11" fill="#cfd6dc" stroke="${INK}" stroke-width="4"/>`,
+        `<rect x="-6" y="4" width="12" height="54" rx="6" fill="#9aa6b2"/>`,
+        `<circle cx="0" cy="0" r="4" fill="${INK}"/>`,
+        `<path d="M28,-44 l4,-10 l4,10 l10,4 l-10,4 l-4,10 l-4,-10 l-10,-4 Z" fill="#ffffff"/>`,
       );
-    } else {
-      g.push(
-        `<path d="M-24,0 Q-40,40 -30,56 L-8,56 Q-10,30 4,10 Z" fill="${wood}" stroke="#14100c" stroke-width="4"/>`,
+      break;
+
+    case 4: {
+      // Hot Coal
+      glow = ember;
+      const cracks =
+        'M-40,-10 L-14,0 L-20,24 M-14,0 L14,-20 L38,-4 M14,-20 L10,-42 M-2,20 L22,30 L40,16';
+      parts.push(
+        `<path d="M-30,-58 Q-10,-80 0,-60 Q14,-90 26,-56 Q36,-74 40,-48" fill="none" stroke="${ember}" stroke-width="8" stroke-linecap="round" stroke-opacity="0.85"/>`,
+        `<path d="M-58,10 L-40,-36 L-6,-50 L34,-40 L60,-6 L50,38 L10,56 L-36,48 Z" fill="#2a1a14" stroke="${INK}" stroke-width="4"/>`,
+        `<path d="${cracks}" fill="none" stroke="${ember}" stroke-width="6" stroke-linecap="round"/>`,
+        `<path d="${cracks}" fill="none" stroke="#ffd36b" stroke-width="2" stroke-linecap="round"/>`,
       );
+      break;
     }
-    g.push(
-      `<rect x="-34" y="-14" width="50" height="28" rx="6" fill="${metal}" stroke="#14100c" stroke-width="4"/>`,
-    );
-    if (value <= 7 || value === 9) {
-      g.push(
-        `<circle cx="-4" cy="0" r="15" fill="${metal}" stroke="#14100c" stroke-width="4"/><circle cx="-4" cy="0" r="4" fill="#14100c"/>`,
+
+    case 5: {
+      // Static Horseshoe
+      glow = spark;
+      const shoe = 'M-52,60 L-52,-4 Q-52,-64 0,-64 Q52,-64 52,-4 L52,60';
+      parts.push(
+        `<path d="${shoe}" fill="none" stroke="${INK}" stroke-width="30"/>`,
+        `<path d="${shoe}" fill="none" stroke="#8d96a0" stroke-width="22"/>`,
       );
-    }
-    g.push(
-      `<rect x="14" y="-12" width="${barrel}" height="11" rx="3" fill="${metal}" stroke="#14100c" stroke-width="4"/>`,
-    );
-    if (value === 7) {
-      g.push(
-        `<rect x="14" y="1" width="${barrel}" height="11" rx="3" fill="${metal}" stroke="#14100c" stroke-width="4"/>`,
+      for (const [x, y] of [
+        [-52, 40],
+        [-52, 10],
+        [-40, -36],
+        [52, 40],
+        [52, 10],
+        [40, -36],
+      ]) {
+        parts.push(`<rect x="${x! - 3}" y="${y! - 5}" width="6" height="10" fill="${INK}"/>`);
+      }
+      parts.push(
+        bolt('M-70,-70 L-58,-52 L-70,-44 L-56,-26'),
+        bolt('M70,-66 L60,-50 L72,-42 L60,-24'),
+        bolt('M-12,-92 L-4,-76 L-14,-70', 3),
       );
+      break;
     }
-    if (value === 8 || value === 10) {
-      g.push(`<path d="M-6,14 Q4,34 18,26" fill="none" stroke="#14100c" stroke-width="5"/>`);
+
+    case 6: // Rusty Hatchet
+      rot = 30;
+      parts.push(
+        `<rect x="-8" y="-60" width="16" height="140" rx="6" fill="${wood}" stroke="${INK}" stroke-width="4"/>`,
+        `<path d="M-6,-62 L-6,-30 L-58,-18 Q-76,-46 -58,-82 Z" fill="#9a4a24" stroke="${INK}" stroke-width="4"/>`,
+        `<path d="M-58,-82 Q-74,-50 -58,-18" fill="none" stroke="#c9a088" stroke-width="4"/>`,
+        `<circle cx="-34" cy="-58" r="5" fill="#6a2a14"/><circle cx="-22" cy="-40" r="3" fill="#6a2a14"/>`,
+        `<rect x="-10" y="-68" width="20" height="44" rx="4" fill="#7a3a1c" stroke="${INK}" stroke-width="4"/>`,
+      );
+      break;
+
+    case 7: // Lightning Rod Fragment
+      glow = spark;
+      rot = 20;
+      k = 0.9;
+      dy = 12;
+      parts.push(
+        `<rect x="-6" y="-56" width="12" height="130" rx="3" fill="#6e747a" stroke="${INK}" stroke-width="4"/>`,
+        `<path d="M-16,-56 L0,-96 L16,-56 Z" fill="#c9a64a" stroke="${INK}" stroke-width="4"/>`,
+        `<circle cx="0" cy="-20" r="14" fill="#c9a64a" stroke="${INK}" stroke-width="4"/>`,
+        `<path d="M-14,74 L-6,56 L6,62 L14,48" fill="none" stroke="${INK}" stroke-width="5"/>`,
+        bolt('M0,-96 L-22,-70 L-8,-64 L-34,-30'),
+        bolt('M0,-96 L24,-74 L10,-66 L36,-40'),
+        bolt('M14,-20 L40,-8 L30,0 L52,14', 3),
+      );
+      break;
+
+    case 8: // Storm Jar
+      glow = '#6f8cff';
+      rot = -15;
+      parts.push(
+        `<rect x="-46" y="-50" width="92" height="118" rx="20" fill="#2a3f8a" fill-opacity="0.85"/>`,
+        `<path d="M-30,10 Q-34,-14 -10,-14 Q-4,-34 16,-24 Q38,-28 34,-4 Q46,12 26,18 L-20,18 Q-40,22 -30,10 Z" fill="#3a3a5e" stroke="#1a1a30" stroke-width="3"/>`,
+        bolt('M2,18 L-8,36 L6,40 L-4,60', 3.5),
+        `<rect x="-46" y="-50" width="92" height="118" rx="20" fill="none" stroke="${INK}" stroke-width="4"/>`,
+        `<path d="M-34,-30 Q-38,10 -30,40" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="6" stroke-linecap="round"/>`,
+        `<rect x="-40" y="-72" width="80" height="24" rx="5" fill="#7a5530" stroke="${INK}" stroke-width="4"/>`,
+        `<path d="M-40,-52 Q0,-40 40,-52" fill="none" stroke="#b08850" stroke-width="5"/>`,
+        `<circle cx="50" cy="-36" r="11" fill="#b08850" stroke="${INK}" stroke-width="3"/>`,
+      );
+      break;
+
+    case 9: {
+      // Hellfire Branding Iron
+      glow = '#ff4a1a';
+      rot = -35;
+      k = 0.85;
+      dx = 10;
+      dy = 26;
+      const brand = 'M-32,-30 L-32,-62 Q-32,-90 0,-90 Q32,-90 32,-62 L32,-30';
+      parts.push(
+        `<rect x="-5" y="-30" width="10" height="110" fill="#4a4440" stroke="${INK}" stroke-width="3"/>`,
+        `<rect x="-11" y="50" width="22" height="44" rx="6" fill="${wood}" stroke="${INK}" stroke-width="4"/>`,
+        `<path d="M-30,-92 Q-50,-120 -20,-128 Q-8,-110 0,-136 Q12,-110 24,-128 Q52,-118 30,-92" fill="${ember}" fill-opacity="0.75"/>`,
+        `<path d="${brand}" fill="none" stroke="${INK}" stroke-width="16" stroke-linecap="round"/>`,
+        `<path d="${brand}" fill="none" stroke="#ff5a1f" stroke-width="9" stroke-linecap="round"/>`,
+        `<path d="M0,-74 L5,-60 L19,-60 L8,-51 L12,-38 L0,-46 L-12,-38 L-8,-51 L-19,-60 L-5,-60 Z" fill="#ffd36b" stroke="${INK}" stroke-width="2.5"/>`,
+        `<rect x="-24" y="-34" width="48" height="8" rx="3" fill="#4a4440" stroke="${INK}" stroke-width="3"/>`,
+      );
+      break;
     }
-    g.push(`<path d="M-4,14 L4,26 L10,14" fill="none" stroke="#14100c" stroke-width="4"/>`);
-    parts.push(`<g transform="translate(${value >= 8 ? 6 : -12} 0)">${g.join('')}</g>`);
+
+    case 10: {
+      // Thunderhead in a Bottle
+      glow = '#9fd8ff';
+      const bottle =
+        'M-14,-66 L14,-66 L14,-42 Q60,-30 60,16 Q60,74 0,74 Q-60,74 -60,16 Q-60,-30 -14,-42 Z';
+      parts.push(
+        `<path d="${bottle}" fill="#1c2a5a" fill-opacity="0.9"/>`,
+        `<path d="M-40,8 Q-46,-20 -16,-20 Q-8,-44 18,-32 Q46,-38 42,-8 Q56,12 30,20 L-24,20 Q-50,26 -40,8 Z" fill="#4a4a70" stroke="#14142a" stroke-width="3"/>`,
+        bolt('M-10,20 L-22,40 L-6,44 L-18,66'),
+        bolt('M18,20 L10,36 L24,40 L16,58', 3),
+        `<path d="${bottle}" fill="none" stroke="${INK}" stroke-width="4"/>`,
+        `<path d="M-44,0 Q-46,-22 -28,-32" fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="6" stroke-linecap="round"/>`,
+        `<rect x="-18" y="-86" width="36" height="22" rx="4" fill="#9a6a3c" stroke="${INK}" stroke-width="4"/>`,
+        bolt('M-60,-60 L-48,-44 L-60,-38 L-46,-20', 3),
+        bolt('M62,-62 L52,-46 L64,-40 L52,-22', 3),
+      );
+      break;
+    }
+
+    default:
+      return weapon(6);
   }
-  const rot = value <= 4 ? 35 : -25;
+
+  const s = lerp(0.82, 1, (value - 2) / 8);
+  const body = `<g transform="translate(${100 + dx} ${100 + dy}) rotate(${rot}) scale(${(s * k).toFixed(3)})">${parts.join('')}</g>`;
   return svg(
-    `<g transform="translate(100 100) rotate(${rot}) scale(${lerp(0.8, 1, t).toFixed(3)})">${parts.join('')}</g>`,
-    value >= 9 ? glowDefs(value === 10 ? '#ffd86b' : '#cfe6ff') : '',
+    (glow ? `<circle cx="100" cy="100" r="96" fill="url(#glow)"/>` : '') + body,
+    glow ? glowDefs(glow) : '',
   );
 }
 
