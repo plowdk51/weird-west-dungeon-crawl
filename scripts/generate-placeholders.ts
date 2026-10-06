@@ -183,16 +183,23 @@ function weapon(value: number): string {
       );
       break;
 
-    case 5: // Coyote-Fang Machete
+    case 5: // Cactus-Spiked Machete: saguaro ridge along the spine of the blade
       k = 1.15;
       dy = 4;
       parts.push(
         `<path d="M-14,0 L-14,-70 Q-14,-96 6,-98 Q22,-90 22,-60 L14,0 Z" fill="#a9b2ba" ${stroke}/>`,
         `<path d="M-6,-10 L-6,-80" stroke="#dfe5ea" stroke-width="3"/>`,
       );
-      for (let i = 0; i < 5; i++) {
-        const y = -82 + i * 15;
-        parts.push(`<path d="M-14,${y} L-26,${y + 6} L-14,${y + 11} Z" fill="${bone}" stroke="${INK}" stroke-width="2.5"/>`);
+      parts.push(
+        `<rect x="-22" y="-90" width="10" height="84" rx="5" fill="#4f8a3a" ${stroke}/>`,
+        `<path d="M-17,-84 L-17,-12" stroke="#7fb85a" stroke-width="2"/>`,
+        `<circle cx="-17" cy="-92" r="5" fill="#e85a8a" stroke="${INK}" stroke-width="2"/>`,
+      );
+      for (let i = 0; i < 7; i++) {
+        const y = -86 + i * 12;
+        parts.push(
+          `<path d="M-21,${y} L-38,${y - 7} M-21,${y + 3} L-36,${y + 9}" stroke="#7a5a1a" stroke-width="3" stroke-linecap="round"/>`,
+        );
       }
       parts.push(
         `<rect x="-20" y="-4" width="40" height="10" rx="3" fill="#4a3a2a" ${stroke}/>`,

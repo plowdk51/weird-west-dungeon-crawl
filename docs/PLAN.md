@@ -70,7 +70,7 @@ Setting: a cursed silver mine under a ghost town. Each room is a chamber further
 ### Weapons (♦, 2–10)
 
 No firearms. Pulp-fantasy frontier weapons, crude at low values and cursed or elemental relics near the top:
-2 Coyote Bone Shiv · 3 Railroad Spike Dirk · 4 Copper War Pick · 5 Coyote-Fang Machete · 6 Stormlash Whip · 7 Brimstone Hatchet · 8 Gravedigger’s Spade-Axe · 9 Hellfire Saber · 10 Sundown Scythe
+2 Coyote Bone Shiv · 3 Railroad Spike Dirk · 4 Copper War Pick · 5 Cactus-Spiked Machete · 6 Stormlash Whip · 7 Brimstone Hatchet · 8 Gravedigger’s Spade-Axe · 9 Hellfire Saber · 10 Sundown Scythe
 
 ### Potions (♥, heal 2–10)
 

@@ -36,8 +36,8 @@ const byRole: Record<Role, Record<number, CardInfo>> = {
       flavor: 'A miner’s pick reforged for war. Sparks fly when it lands.',
     },
     5: {
-      name: 'Coyote-Fang Machete',
-      flavor: 'Every fang along its edge came from a different coyote.',
+      name: 'Cactus-Spiked Machete',
+      flavor: 'Saguaro spines grow right out of the blade. Cut them off and they grow back.',
     },
     6: { name: 'Stormlash Whip', flavor: 'Cracks like thunder because it is thunder.' },
     7: { name: 'Brimstone Hatchet', flavor: 'Smolders in its sheath and stinks of sulfur.' },

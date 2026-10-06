@@ -55,7 +55,7 @@ No firearms. Pulp-fantasy frontier weapons: crude and homemade at low values, cu
 | `weapon.2`       | Coyote Bone Shiv        | Physical  |
 | `weapon.3`       | Railroad Spike Dirk     | Physical  |
 | `weapon.4`       | Copper War Pick         | Lightning |
-| `weapon.5`       | Coyote-Fang Machete     | Physical  |
+| `weapon.5`       | Cactus-Spiked Machete   | Physical  |
 | `weapon.6`       | Stormlash Whip          | Lightning |
 | `weapon.7`       | Brimstone Hatchet       | Fire      |
 | `weapon.8`       | Gravedigger’s Spade-Axe | Cursed    |
