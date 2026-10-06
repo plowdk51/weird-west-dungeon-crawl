@@ -6,8 +6,8 @@
  *   monster.clubs.7  →  monster.7  →  monster.default
  *
  * Examples:
- *   'monster.7': 'art/monsters/hex-wolf.png',          // both suits
- *   'monster.spades.7': 'art/monsters/black-wolf.png', // spades only
+ *   'monster.7': 'art/monsters/bone-rattler.png',      // both suits
+ *   'monster.spades.7': 'art/monsters/black-rattler.png', // spades only
  *   'ui.background': 'art/ui/mine-shaft.webp',
  *
  * See docs/ART_GUIDE.md for the full list of keys.

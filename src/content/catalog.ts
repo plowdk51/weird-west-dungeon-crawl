@@ -11,19 +11,37 @@ export interface CardInfo {
  */
 const byRole: Record<Role, Record<number, CardInfo>> = {
   monster: {
-    2: { name: 'Rattlesnake', flavor: 'Coiled in the ore cart. Mostly bluster.' },
-    3: { name: 'Dust Devil', flavor: 'A cackling whirl of grit and spite.' },
-    4: { name: 'Carrion Buzzard', flavor: 'It has been following you since the surface.' },
-    5: { name: 'Ghoul Prospector', flavor: 'Still digging. Never stopped.' },
-    6: { name: 'Bandit Shade', flavor: 'Shot in a robbery gone wrong. Still robbing.' },
-    7: { name: 'Hex-Wolf', flavor: 'Too many eyes for an honest animal.' },
-    8: { name: 'Hanged Man', flavor: 'The rope snapped. He did not.' },
-    9: { name: 'Mine Wraith', flavor: 'The cold arrives a moment before it does.' },
-    10: { name: 'Sawbones Revenant', flavor: 'Offers surgery. Insists on it.' },
-    11: { name: 'Deadeye Marshal', flavor: 'Never missed in life. Death improved his aim.' },
-    12: { name: 'Widow Banshee', flavor: 'Her wail rattles the timbers loose.' },
-    13: { name: 'Iron Horse Horror', flavor: 'A derailed locomotive, hungry and steaming.' },
-    14: { name: 'The Pale Rider', flavor: 'What waits at the bottom of the mine.' },
+    2: { name: 'Jackalope Biter', flavor: 'Antlers like a buck, teeth like a bear trap.' },
+    3: { name: 'Scorpion Swarm', flavor: 'A skittering carpet of glowing tails.' },
+    4: {
+      name: 'Rattler Bandit',
+      flavor: 'Wanted in three territories for highway robbery and shedding.',
+    },
+    5: { name: 'Vulture Harpy', flavor: 'Half buzzard, half hag, all appetite.' },
+    6: { name: 'Wash Wisp', flavor: 'Follow the pretty light. Everybody does, once.' },
+    7: { name: 'Bone Rattler', flavor: 'Its rattle tolls like a church bell.' },
+    8: {
+      name: 'Snake-Oil Salesman',
+      flavor: 'Drank his own tonic. Now he sells it with too many teeth.',
+    },
+    9: { name: 'Mine-Cart Mimic', flavor: 'It hears you coming down the rails.' },
+    10: {
+      name: 'Copper Golem',
+      flavor: 'Built from ore, rails and rivets by miners who never came back for it.',
+    },
+    11: { name: 'Storm Witch', flavor: 'Rides a lightning rod and drags the weather behind her.' },
+    12: {
+      name: 'Copperhead Queen',
+      flavor: 'She wears a crown of fangs, every one of them her own.',
+    },
+    13: {
+      name: 'Canyon Colossus',
+      flavor: 'One day the canyon wall stood up and started walking.',
+    },
+    14: {
+      name: 'The Sun-Eater',
+      flavor: 'Every evening it swallows the sun. Down here, it is always evening.',
+    },
   },
   weapon: {
     2: { name: 'Coyote Bone Shiv', flavor: 'Whittled from something that used to howl.' },
@@ -62,7 +80,7 @@ const byRole: Record<Role, Record<number, CardInfo>> = {
 };
 
 const suitOverrides: Partial<Record<`${Role}.${Suit}.${number}`, CardInfo>> = {
-  // 'monster.spades.7': { name: 'Black Hex-Wolf', flavor: '...' },
+  // 'monster.spades.7': { name: 'Black Bone Rattler', flavor: '...' },
 };
 
 export function cardInfo(card: Card): CardInfo {

@@ -57,15 +57,8 @@ Setting: a cursed silver mine under a ghost town. Each room is a chamber further
 
 ### Monsters (♣ and ♠, damage 2–14)
 
-| Value | Name             |     |  Value | Name              |
-| ----: | ---------------- | --- | -----: | ----------------- |
-|     2 | Rattlesnake      |     |      9 | Mine Wraith       |
-|     3 | Dust Devil       |     |     10 | Sawbones Revenant |
-|     4 | Carrion Buzzard  |     | 11 (J) | Deadeye Marshal   |
-|     5 | Ghoul Prospector |     | 12 (Q) | Widow Banshee     |
-|     6 | Bandit Shade     |     | 13 (K) | Iron Horse Horror |
-|     7 | Hex-Wolf         |     | 14 (A) | The Pale Rider    |
-|     8 | Hanged Man       |     |        |                   |
+Pulp-fantasy creatures, critters at low values and legends at 11–14:
+2 Jackalope Biter · 3 Scorpion Swarm · 4 Rattler Bandit · 5 Vulture Harpy · 6 Wash Wisp · 7 Bone Rattler · 8 Snake-Oil Salesman · 9 Mine-Cart Mimic · 10 Copper Golem · 11 Storm Witch · 12 Copperhead Queen · 13 Canyon Colossus · 14 The Sun-Eater
 
 ### Weapons (♦, 2–10)
 
@@ -164,13 +157,13 @@ weapon.diamonds.5 →  weapon.5    →  weapon.default
 
 To add real art:
 
-1. Drop `public/art/monsters/hex-wolf.png` (any web format: png, webp, svg).
-2. Change one line: `'monster.7': 'art/monsters/hex-wolf.png'`.
+1. Drop `public/art/monsters/bone-rattler.png` (any web format: png, webp, svg).
+2. Change one line: `'monster.7': 'art/monsters/bone-rattler.png'`.
 3. To give spades its own wolf later, add `'monster.spades.7': '…'`. No other code changes.
 
 **Placeholders:** one parametric SVG template per role, drawn in code and written out as 31 files:
 
-- **Monster:** skull/horned silhouette. It grows larger, darker and spikier as the value goes up, with a red damage badge.
+- **Monster:** a distinct creature silhouette per value (jackalope, scorpions, snake bandit, harpy, wisp, bone snake, huckster, mine-cart mimic, golem, witch, serpent queen, rock giant, sun-swallowing serpent). Eyes and auras intensify with the value, with a red damage badge.
 - **Weapon:** a distinct weapon silhouette per value (bone shiv, spike dirk, war pick, fanged machete, lightning whip, burning hatchet, haunted spade-axe, flaming saber, sunset scythe) with fire or lightning effects on the stronger ones, and a steel-blue attack badge.
 - **Potion:** bottle silhouette whose liquid level and glow scale with the value, with a green heal badge.
 
@@ -189,12 +182,12 @@ Portrait layout, one screen with no scrolling during play:
 │ ♥ 17/20  ▓▓▓▓▓▓▓░░   ⛏ 31 │  HUD: health bar, cards left in mine, chamber #
 ├───────────────────────────┤
 │   ┌───────┐  ┌───────┐    │
-│   │ Wolf  │  │ Tonic │    │  Room: 2×2 grid of tiles
+│   │Rattler│  │ Tonic │    │  Room: 2×2 grid of tiles
 │   │  ⚔7   │  │  ✚8   │    │  (art + name + value badge)
 │   └───────┘  └───────┘    │
 │   ┌───────┐  ┌───────┐    │
-│   │Derrin.│  │ Wraith│    │
-│   │  🗡5   │  │  ⚔9   │    │
+│   │Machete│  │ Wisp  │    │
+│   │  🗡5   │  │  ⚔6   │    │
 │   └───────┘  └───────┘    │
 ├───────────────────────────┤
 │ Equipped: Stormlash (6)   │  Weapon panel: weapon + stack of slain monsters,
@@ -240,5 +233,6 @@ Each milestone is its own commit (or small set of commits) pushed to GitHub. I'l
 - **Name:** Weird West Dungeon Crawl (working title).
 - **GitHub:** plain `git` (no GitHub CLI); remote https://github.com/plowdk51/weird-west-dungeon-crawl.
 - **Rules:** standard Scoundrel, no house rules.
+- **Monsters:** same pulp-fantasy tone, weird and adventurous rather than horrific; no guns; nothing drawn from real Indigenous belief.
 - **Weapons:** no guns, and they should feel like weapons rather than everyday objects. Same pulp-fantasy Weird West vibe as the Bounty Hunter game, with names unique to this game.
 - **Art:** placeholder SVGs now; clubs and spades share art for now, with per-suit overrides supported.

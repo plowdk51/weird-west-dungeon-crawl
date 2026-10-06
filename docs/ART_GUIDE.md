@@ -4,11 +4,11 @@ The game ships with generated placeholder SVGs. Replacing any of them with your 
 
 ## How to add art
 
-1. Put the image file under `public/art/`, for example `public/art/monsters/hex-wolf.png`.
+1. Put the image file under `public/art/`, for example `public/art/monsters/bone-rattler.png`.
 2. Add one line to [`src/art/manifest.ts`](../src/art/manifest.ts):
    ```ts
    export const artManifest: Record<string, string> = {
-     'monster.7': 'art/monsters/hex-wolf.png',
+     'monster.7': 'art/monsters/bone-rattler.png',
    };
    ```
 
@@ -36,15 +36,24 @@ Clubs and spades share `monster.N` art today. To give spades a different look la
 
 ### Monsters (damage 2–14)
 
-| Key         | Name             | Key               | Name              |
-| ----------- | ---------------- | ----------------- | ----------------- |
-| `monster.2` | Rattlesnake      | `monster.9`       | Mine Wraith       |
-| `monster.3` | Dust Devil       | `monster.10`      | Sawbones Revenant |
-| `monster.4` | Carrion Buzzard  | `monster.11`      | Deadeye Marshal   |
-| `monster.5` | Ghoul Prospector | `monster.12`      | Widow Banshee     |
-| `monster.6` | Bandit Shade     | `monster.13`      | Iron Horse Horror |
-| `monster.7` | Hex-Wolf         | `monster.14`      | The Pale Rider    |
-| `monster.8` | Hanged Man       | `monster.default` | fallback          |
+Pulp-fantasy Weird West creatures: critters at low values, legends at 11–14. Weird and adventurous rather than horrific.
+
+| Key               | Name               |
+| ----------------- | ------------------ |
+| `monster.2`       | Jackalope Biter    |
+| `monster.3`       | Scorpion Swarm     |
+| `monster.4`       | Rattler Bandit     |
+| `monster.5`       | Vulture Harpy      |
+| `monster.6`       | Wash Wisp          |
+| `monster.7`       | Bone Rattler       |
+| `monster.8`       | Snake-Oil Salesman |
+| `monster.9`       | Mine-Cart Mimic    |
+| `monster.10`      | Copper Golem       |
+| `monster.11`      | Storm Witch        |
+| `monster.12`      | Copperhead Queen   |
+| `monster.13`      | Canyon Colossus    |
+| `monster.14`      | The Sun-Eater      |
+| `monster.default` | fallback           |
 
 ### Weapons (attack 2–10)
 
