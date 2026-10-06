@@ -112,205 +112,192 @@ function monster(value: number): string {
 // ------------------------------------------------------------------ weapons (no firearms)
 
 /**
- * Magic-touched frontier objects, matching the Bounty Hunter setting: physical,
- * fire and electric items that get stranger and stronger as the value rises.
+ * Pulp-fantasy frontier weapons: crude and homemade at low values, cursed or
+ * elemental relics near the top. Each value gets its own silhouette.
  */
 function weapon(value: number): string {
   const INK = '#14100c';
   const wood = '#6a4426';
+  const leather = '#5a3a24';
+  const bone = '#e8dcc0';
   const ember = '#ff7a2a';
   const spark = '#8fd3ff';
+  const stroke = `stroke="${INK}" stroke-width="4"`;
   const bolt = (d: string, w = 4) =>
     `<path d="${d}" fill="none" stroke="${spark}" stroke-width="${w * 2.2}" stroke-opacity="0.35" stroke-linejoin="round"/>` +
     `<path d="${d}" fill="none" stroke="#e8f6ff" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"/>`;
+  const flame = (x: number, y: number, h: number) =>
+    `<path d="M${x - h * 0.3},${y} Q${x - h * 0.4},${y - h * 0.6} ${x},${y - h} Q${x + h * 0.1},${y - h * 0.5} ${x + h * 0.3},${y - h * 0.7} Q${x + h * 0.45},${y - h * 0.3} ${x + h * 0.3},${y} Z" fill="${ember}" fill-opacity="0.85"/>`;
+  const wrap = (x: number, y0: number, y1: number, w: number, step = 9) => {
+    let out = '';
+    for (let y = y0; y < y1; y += step) {
+      out += `<path d="M${x - w},${y} L${x + w},${y + 5}" stroke="${INK}" stroke-width="2" opacity="0.6"/>`;
+    }
+    return out;
+  };
   const parts: string[] = [];
   let glow: string | null = null;
-  let rot = 0;
+  let rot = 35;
   // Per-item framing: offset and size multiplier so each silhouette fills its tile.
   let dx = 0;
   let dy = 0;
   let k = 1;
 
   switch (value) {
-    case 2: {
-      // Thorned Spur: heel band, shank and a thorny rowel
-      rot = -10;
-      k = 1.15;
-      dx = 8;
-      dy = -14;
-      const band = 'M-70,-30 Q-70,30 -10,30 Q40,30 40,-30';
+    case 2: // Coyote Bone Shiv: a sharpened leg bone bound in rawhide
+      k = 1.3;
       parts.push(
-        `<path d="${band}" fill="none" stroke="${INK}" stroke-width="20" stroke-linecap="round"/>`,
-        `<path d="${band}" fill="none" stroke="#a89474" stroke-width="12" stroke-linecap="round"/>`,
-        `<path d="M-14,30 L40,52" stroke="${INK}" stroke-width="10" stroke-linecap="round"/>`,
-        `<path d="M-14,30 L40,52" stroke="#8a7a62" stroke-width="5" stroke-linecap="round"/>`,
-      );
-      for (let i = 0; i < 8; i++) {
-        const a = (i / 8) * Math.PI * 2;
-        const pt = (ang: number, r: number) =>
-          `${(50 + Math.cos(ang) * r).toFixed(1)},${(56 + Math.sin(ang) * r).toFixed(1)}`;
-        parts.push(
-          `<path d="M${pt(a, 8)} L${pt(a + 0.2, 30)} L${pt(a + 0.4, 8)} Z" fill="#5d7a3a" stroke="${INK}" stroke-width="2.5"/>`,
-        );
-      }
-      parts.push(
-        `<circle cx="50" cy="56" r="10" fill="#8a7a62" stroke="${INK}" stroke-width="3"/>`,
-      );
-      for (const [x, y] of [
-        [-66, -6],
-        [-48, 22],
-        [24, 18],
-      ]) {
-        parts.push(
-          `<path d="M${x},${y} l-10,-8 l12,2 Z" fill="#5d7a3a" stroke="${INK}" stroke-width="2"/>`,
-        );
-      }
-      break;
-    }
-
-    case 3: // Silver Pocket Knife
-      rot = 35;
-      k = 1.15;
-      parts.push(
-        `<path d="M-12,-6 L-12,-80 Q6,-96 16,-64 L16,-6 Z" fill="#e6edf3" stroke="${INK}" stroke-width="4"/>`,
-        `<path d="M-3,-14 L-3,-70" stroke="#ffffff" stroke-width="3" stroke-opacity="0.8"/>`,
-        `<rect x="-13" y="-8" width="26" height="78" rx="11" fill="#cfd6dc" stroke="${INK}" stroke-width="4"/>`,
-        `<rect x="-6" y="4" width="12" height="54" rx="6" fill="#9aa6b2"/>`,
-        `<circle cx="0" cy="0" r="4" fill="${INK}"/>`,
-        `<path d="M28,-44 l4,-10 l4,10 l10,4 l-10,4 l-4,10 l-4,-10 l-10,-4 Z" fill="#ffffff"/>`,
+        `<path d="M-9,40 L-9,-50 L0,-92 L9,-50 L9,40 Z" fill="${bone}" ${stroke}/>`,
+        `<path d="M-2,-40 L-2,30" stroke="#b8a888" stroke-width="3"/>`,
+        `<circle cx="-10" cy="52" r="13" fill="${bone}" ${stroke}/>`,
+        `<circle cx="10" cy="52" r="13" fill="${bone}" ${stroke}/>`,
+        `<rect x="-12" y="-2" width="24" height="36" rx="4" fill="#a87c4c" ${stroke}/>`,
+        wrap(0, 2, 32, 12, 8),
+        `<path d="M12,26 Q26,40 18,58" fill="none" stroke="#a87c4c" stroke-width="4" stroke-linecap="round"/>`,
       );
       break;
 
-    case 4: {
-      // Hot Coal
-      glow = ember;
-      const cracks =
-        'M-40,-10 L-14,0 L-20,24 M-14,0 L14,-20 L38,-4 M14,-20 L10,-42 M-2,20 L22,30 L40,16';
+    case 3: // Railroad Spike Dirk
+      k = 1.25;
       parts.push(
-        `<path d="M-30,-58 Q-10,-80 0,-60 Q14,-90 26,-56 Q36,-74 40,-48" fill="none" stroke="${ember}" stroke-width="8" stroke-linecap="round" stroke-opacity="0.85"/>`,
-        `<path d="M-58,10 L-40,-36 L-6,-50 L34,-40 L60,-6 L50,38 L10,56 L-36,48 Z" fill="#2a1a14" stroke="${INK}" stroke-width="4"/>`,
-        `<path d="${cracks}" fill="none" stroke="${ember}" stroke-width="6" stroke-linecap="round"/>`,
-        `<path d="${cracks}" fill="none" stroke="#ffd36b" stroke-width="2" stroke-linecap="round"/>`,
+        `<path d="M-11,-8 L-11,-62 L0,-94 L11,-62 L11,-8 Z" fill="#7d858c" ${stroke}/>`,
+        `<path d="M0,-86 L0,-14" stroke="#c3cad0" stroke-width="3"/>`,
+        `<rect x="-22" y="-12" width="44" height="12" rx="2" fill="#5e656b" ${stroke}/>`,
+        `<rect x="-9" y="0" width="18" height="50" fill="#5e656b" ${stroke}/>`,
+        wrap(0, 4, 48, 10, 7).replace(/stroke="#14100c"/g, 'stroke="#b87333"'),
+        `<rect x="-17" y="50" width="34" height="14" rx="2" fill="#5e656b" ${stroke}/>`,
       );
       break;
-    }
 
-    case 5: {
-      // Static Horseshoe
+    case 4: // Copper War Pick
+      rot = 25;
       glow = spark;
-      const shoe = 'M-52,60 L-52,-4 Q-52,-64 0,-64 Q52,-64 52,-4 L52,60';
       parts.push(
-        `<path d="${shoe}" fill="none" stroke="${INK}" stroke-width="30"/>`,
-        `<path d="${shoe}" fill="none" stroke="#8d96a0" stroke-width="22"/>`,
-      );
-      for (const [x, y] of [
-        [-52, 40],
-        [-52, 10],
-        [-40, -36],
-        [52, 40],
-        [52, 10],
-        [40, -36],
-      ]) {
-        parts.push(`<rect x="${x! - 3}" y="${y! - 5}" width="6" height="10" fill="${INK}"/>`);
-      }
-      parts.push(
-        bolt('M-70,-70 L-58,-52 L-70,-44 L-56,-26'),
-        bolt('M70,-66 L60,-50 L72,-42 L60,-24'),
-        bolt('M-12,-92 L-4,-76 L-14,-70', 3),
+        `<rect x="-7" y="-50" width="14" height="128" rx="5" fill="${wood}" ${stroke}/>`,
+        `<path d="M-6,-64 L-6,-40 L-70,-26 L-82,-36 Z" fill="#c8743a" ${stroke}/>`,
+        `<path d="M6,-64 L32,-66 L32,-38 L6,-40 Z" fill="#c8743a" ${stroke}/>`,
+        `<rect x="-11" y="-70" width="22" height="36" rx="3" fill="#a85a2a" ${stroke}/>`,
+        `<path d="M-70,-30 L-20,-40" stroke="#f0a870" stroke-width="3"/>`,
+        bolt('M-84,-36 L-92,-54 L-80,-56 L-88,-74', 3),
+        bolt('M-78,-28 L-96,-20 L-88,-12', 2.5),
       );
       break;
-    }
 
-    case 6: // Rusty Hatchet
+    case 5: // Coyote-Fang Machete
+      k = 1.15;
+      dy = 4;
+      parts.push(
+        `<path d="M-14,0 L-14,-70 Q-14,-96 6,-98 Q22,-90 22,-60 L14,0 Z" fill="#a9b2ba" ${stroke}/>`,
+        `<path d="M-6,-10 L-6,-80" stroke="#dfe5ea" stroke-width="3"/>`,
+      );
+      for (let i = 0; i < 5; i++) {
+        const y = -82 + i * 15;
+        parts.push(`<path d="M-14,${y} L-26,${y + 6} L-14,${y + 11} Z" fill="${bone}" stroke="${INK}" stroke-width="2.5"/>`);
+      }
+      parts.push(
+        `<rect x="-20" y="-4" width="40" height="10" rx="3" fill="#4a3a2a" ${stroke}/>`,
+        `<rect x="-9" y="6" width="18" height="56" rx="7" fill="${leather}" ${stroke}/>`,
+        wrap(0, 12, 58, 9, 8),
+      );
+      break;
+
+    case 6: // Stormlash Whip
+      rot = 0;
+      k = 1.2;
+      glow = spark;
+      parts.push(
+        `<path d="M-40,70 Q-80,10 -30,-20 Q20,-50 50,-20 Q80,10 40,30 Q10,44 20,70" fill="none" stroke="${INK}" stroke-width="12" stroke-linecap="round"/>`,
+        `<path d="M-40,70 Q-80,10 -30,-20 Q20,-50 50,-20 Q80,10 40,30 Q10,44 20,70" fill="none" stroke="#3a4a7a" stroke-width="6" stroke-linecap="round"/>`,
+        bolt('M-58,20 L-46,8 L-54,0 L-40,-14', 3),
+        bolt('M30,-40 L44,-30 L38,-22 L56,-12', 3),
+        bolt('M58,10 L46,24 L56,30 L44,44', 3),
+        `<path d="M20,70 L30,86 M20,70 L14,88 M20,70 L24,92" stroke="#cfe8ff" stroke-width="3" stroke-linecap="round"/>`,
+        `<rect x="-62" y="62" width="44" height="16" rx="7" transform="rotate(-50 -40 70)" fill="${leather}" ${stroke}/>`,
+      );
+      break;
+
+    case 7: // Brimstone Hatchet
       rot = 30;
+      glow = ember;
+      dy = 16;
+      dx = 8;
       parts.push(
-        `<rect x="-8" y="-60" width="16" height="140" rx="6" fill="${wood}" stroke="${INK}" stroke-width="4"/>`,
-        `<path d="M-6,-62 L-6,-30 L-58,-18 Q-76,-46 -58,-82 Z" fill="#9a4a24" stroke="${INK}" stroke-width="4"/>`,
-        `<path d="M-58,-82 Q-74,-50 -58,-18" fill="none" stroke="#c9a088" stroke-width="4"/>`,
-        `<circle cx="-34" cy="-58" r="5" fill="#6a2a14"/><circle cx="-22" cy="-40" r="3" fill="#6a2a14"/>`,
-        `<rect x="-10" y="-68" width="20" height="44" rx="4" fill="#7a3a1c" stroke="${INK}" stroke-width="4"/>`,
+        flame(-46, -78, 40),
+        flame(-24, -82, 30),
+        `<rect x="-8" y="-60" width="16" height="140" rx="6" fill="${wood}" ${stroke}/>`,
+        `<path d="M-6,-62 L-6,-30 L-58,-16 Q-78,-46 -58,-84 Z" fill="#2e2622" ${stroke}/>`,
+        `<path d="M-58,-84 Q-76,-50 -58,-16" fill="none" stroke="${ember}" stroke-width="5"/>`,
+        `<path d="M-48,-62 L-34,-52 L-40,-40 M-34,-52 L-18,-58" fill="none" stroke="${ember}" stroke-width="3" stroke-linecap="round"/>`,
+        `<rect x="-10" y="-68" width="20" height="44" rx="4" fill="#3a302a" ${stroke}/>`,
+        wrap(0, 40, 76, 10, 8),
       );
       break;
 
-    case 7: // Lightning Rod Fragment
-      glow = spark;
+    case 8: // Gravedigger's Spade-Axe
       rot = 20;
-      k = 0.9;
+      glow = '#8affc8';
+      k = 0.95;
       dy = 12;
       parts.push(
-        `<rect x="-6" y="-56" width="12" height="130" rx="3" fill="#6e747a" stroke="${INK}" stroke-width="4"/>`,
-        `<path d="M-16,-56 L0,-96 L16,-56 Z" fill="#c9a64a" stroke="${INK}" stroke-width="4"/>`,
-        `<circle cx="0" cy="-20" r="14" fill="#c9a64a" stroke="${INK}" stroke-width="4"/>`,
-        `<path d="M-14,74 L-6,56 L6,62 L14,48" fill="none" stroke="${INK}" stroke-width="5"/>`,
-        bolt('M0,-96 L-22,-70 L-8,-64 L-34,-30'),
-        bolt('M0,-96 L24,-74 L10,-66 L36,-40'),
-        bolt('M14,-20 L40,-8 L30,0 L52,14', 3),
+        `<rect x="-6" y="-60" width="12" height="150" rx="4" fill="${wood}" ${stroke}/>`,
+        `<path d="M-10,90 L10,90 L10,104 Q0,110 -10,104 Z" fill="#4a4440" ${stroke}/>`,
+        `<path d="M-34,-66 L34,-66 L40,-102 Q0,-128 -40,-102 Z" fill="#7a8278" ${stroke}/>`,
+        `<path d="M-40,-102 Q0,-128 40,-102" fill="none" stroke="#d8e0d8" stroke-width="4"/>`,
+        `<rect x="-12" y="-70" width="24" height="18" rx="3" fill="#4a4440" ${stroke}/>`,
+        `<path d="M-22,-90 Q-30,-104 -20,-112 Q-26,-100 -14,-94" fill="none" stroke="#bfffe0" stroke-width="3" stroke-linecap="round" opacity="0.85"/>`,
+        `<path d="M22,-88 Q34,-100 26,-114 Q36,-104 34,-90" fill="none" stroke="#bfffe0" stroke-width="3" stroke-linecap="round" opacity="0.85"/>`,
+        `<circle cx="-10" cy="-86" r="4" fill="#14100c"/><circle cx="10" cy="-86" r="4" fill="#14100c"/>`,
+        `<path d="M-8,-76 Q0,-70 8,-76" fill="none" stroke="#14100c" stroke-width="3"/>`,
       );
       break;
 
-    case 8: // Storm Jar
-      glow = '#6f8cff';
-      rot = -15;
-      parts.push(
-        `<rect x="-46" y="-50" width="92" height="118" rx="20" fill="#2a3f8a" fill-opacity="0.85"/>`,
-        `<path d="M-30,10 Q-34,-14 -10,-14 Q-4,-34 16,-24 Q38,-28 34,-4 Q46,12 26,18 L-20,18 Q-40,22 -30,10 Z" fill="#3a3a5e" stroke="#1a1a30" stroke-width="3"/>`,
-        bolt('M2,18 L-8,36 L6,40 L-4,60', 3.5),
-        `<rect x="-46" y="-50" width="92" height="118" rx="20" fill="none" stroke="${INK}" stroke-width="4"/>`,
-        `<path d="M-34,-30 Q-38,10 -30,40" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="6" stroke-linecap="round"/>`,
-        `<rect x="-40" y="-72" width="80" height="24" rx="5" fill="#7a5530" stroke="${INK}" stroke-width="4"/>`,
-        `<path d="M-40,-52 Q0,-40 40,-52" fill="none" stroke="#b08850" stroke-width="5"/>`,
-        `<circle cx="50" cy="-36" r="11" fill="#b08850" stroke="${INK}" stroke-width="3"/>`,
-      );
-      break;
-
-    case 9: {
-      // Hellfire Branding Iron
+    case 9: // Hellfire Saber
+      rot = 25;
       glow = '#ff4a1a';
-      rot = -35;
-      k = 0.85;
-      dx = 10;
-      dy = 26;
-      const brand = 'M-32,-30 L-32,-62 Q-32,-90 0,-90 Q32,-90 32,-62 L32,-30';
+      k = 1.1;
+      dy = 16;
       parts.push(
-        `<rect x="-5" y="-30" width="10" height="110" fill="#4a4440" stroke="${INK}" stroke-width="3"/>`,
-        `<rect x="-11" y="50" width="22" height="44" rx="6" fill="${wood}" stroke="${INK}" stroke-width="4"/>`,
-        `<path d="M-30,-92 Q-50,-120 -20,-128 Q-8,-110 0,-136 Q12,-110 24,-128 Q52,-118 30,-92" fill="${ember}" fill-opacity="0.75"/>`,
-        `<path d="${brand}" fill="none" stroke="${INK}" stroke-width="16" stroke-linecap="round"/>`,
-        `<path d="${brand}" fill="none" stroke="#ff5a1f" stroke-width="9" stroke-linecap="round"/>`,
-        `<path d="M0,-74 L5,-60 L19,-60 L8,-51 L12,-38 L0,-46 L-12,-38 L-8,-51 L-19,-60 L-5,-60 Z" fill="#ffd36b" stroke="${INK}" stroke-width="2.5"/>`,
-        `<rect x="-24" y="-34" width="48" height="8" rx="3" fill="#4a4440" stroke="${INK}" stroke-width="3"/>`,
+        `<path d="M-8,-6 Q-14,-60 6,-104 Q4,-60 10,-6 Z" fill="#ff5a1f" ${stroke}/>`,
+        `<path d="M-2,-14 Q-6,-56 4,-92" fill="none" stroke="#ffd36b" stroke-width="4" stroke-linecap="round"/>`,
+        flame(-14, -40, 34),
+        flame(10, -70, 28),
+        `<path d="M-26,-4 Q0,-16 26,-4 L26,4 Q0,-6 -26,4 Z" fill="#c9a64a" ${stroke}/>`,
+        `<path d="M14,2 Q34,24 14,56" fill="none" stroke="#c9a64a" stroke-width="5"/>`,
+        `<rect x="-8" y="2" width="16" height="50" rx="6" fill="#3a1a12" ${stroke}/>`,
+        `<circle cx="0" cy="58" r="8" fill="#c9a64a" ${stroke}/>`,
       );
       break;
-    }
 
-    case 10: {
-      // Thunderhead in a Bottle
-      glow = '#9fd8ff';
-      const bottle =
-        'M-14,-66 L14,-66 L14,-42 Q60,-30 60,16 Q60,74 0,74 Q-60,74 -60,16 Q-60,-30 -14,-42 Z';
+    case 10: // Sundown Scythe
+      rot = 15;
+      k = 0.95;
+      dx = 18;
+      dy = 12;
+      glow = '#ff9a3a';
       parts.push(
-        `<path d="${bottle}" fill="#1c2a5a" fill-opacity="0.9"/>`,
-        `<path d="M-40,8 Q-46,-20 -16,-20 Q-8,-44 18,-32 Q46,-38 42,-8 Q56,12 30,20 L-24,20 Q-50,26 -40,8 Z" fill="#4a4a70" stroke="#14142a" stroke-width="3"/>`,
-        bolt('M-10,20 L-22,40 L-6,44 L-18,66'),
-        bolt('M18,20 L10,36 L24,40 L16,58', 3),
-        `<path d="${bottle}" fill="none" stroke="${INK}" stroke-width="4"/>`,
-        `<path d="M-44,0 Q-46,-22 -28,-32" fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="6" stroke-linecap="round"/>`,
-        `<rect x="-18" y="-86" width="36" height="22" rx="4" fill="#9a6a3c" stroke="${INK}" stroke-width="4"/>`,
-        bolt('M-60,-60 L-48,-44 L-60,-38 L-46,-20', 3),
-        bolt('M62,-62 L52,-46 L64,-40 L52,-22', 3),
+        `<circle cx="-20" cy="-50" r="44" fill="url(#sun)"/>`,
+        `<rect x="-5" y="-90" width="10" height="190" rx="4" fill="#3a2418" ${stroke}/>`,
+        `<path d="M-2,-88 Q-60,-112 -110,-60 Q-70,-88 -2,-68 Z" fill="url(#dusk)" ${stroke}/>`,
+        `<path d="M-100,-64 Q-60,-98 -6,-84" fill="none" stroke="#fff0b0" stroke-width="3" stroke-linecap="round"/>`,
+        `<rect x="-10" y="-94" width="20" height="30" rx="4" fill="#5a3a24" ${stroke}/>`,
+        `<rect x="-22" y="8" width="20" height="10" rx="4" fill="#5a3a24" ${stroke}/>`,
       );
       break;
-    }
 
     default:
       return weapon(6);
   }
 
-  const s = lerp(0.82, 1, (value - 2) / 8);
+  const s = 0.78;
   const body = `<g transform="translate(${100 + dx} ${100 + dy}) rotate(${rot}) scale(${(s * k).toFixed(3)})">${parts.join('')}</g>`;
+  const extraDefs =
+    value === 10
+      ? `<radialGradient id="sun"><stop offset="0" stop-color="#ffd36b" stop-opacity="0.9"/><stop offset="1" stop-color="#ff6a2a" stop-opacity="0"/></radialGradient>` +
+        `<linearGradient id="dusk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7a3cff"/><stop offset="0.5" stop-color="#ff5a2a"/><stop offset="1" stop-color="#ffd36b"/></linearGradient>`
+      : '';
   return svg(
     (glow ? `<circle cx="100" cy="100" r="96" fill="url(#glow)"/>` : '') + body,
-    glow ? glowDefs(glow) : '',
+    (glow ? glowDefs(glow) : '') + extraDefs,
   );
 }
 

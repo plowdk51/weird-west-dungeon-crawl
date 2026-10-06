@@ -48,20 +48,20 @@ Clubs and spades share `monster.N` art today. To give spades a different look la
 
 ### Weapons (attack 2–10)
 
-No firearms. Weapons are magic-touched frontier objects from the same setting as the Weird West Bounty Hunter game, so its item art can be reused. The last column is the matching file in `bountygame/public/assets/items/`, where one exists.
+No firearms. Pulp-fantasy frontier weapons: crude and homemade at low values, cursed or elemental relics near the top. The element is only a look (color and effects); the rules use just the number.
 
-| Key              | Name                    | Element     | Bounty Hunter art            |
-| ---------------- | ----------------------- | ----------- | ---------------------------- |
-| `weapon.2`       | Thorned Spur            | Physical    | `thorned-spur.png`           |
-| `weapon.3`       | Silver Pocket Knife     | Physical    | `silver-pocket-knife.png`    |
-| `weapon.4`       | Hot Coal                | Fire        | `hot-coal.png`               |
-| `weapon.5`       | Static Horseshoe        | Electricity | `static-horseshoe.png`       |
-| `weapon.6`       | Rusty Hatchet           | Physical    | `rusty-hatchet.png`          |
-| `weapon.7`       | Lightning Rod Fragment  | Electricity | `lightning-rod-fragment.png` |
-| `weapon.8`       | Storm Jar               | Electricity | `storm-jar.png`              |
-| `weapon.9`       | Hellfire Branding Iron  | Fire        | not made yet                 |
-| `weapon.10`      | Thunderhead in a Bottle | Electricity | not made yet                 |
-| `weapon.default` | fallback                |             |                              |
+| Key              | Name                    | Element   |
+| ---------------- | ----------------------- | --------- |
+| `weapon.2`       | Coyote Bone Shiv        | Physical  |
+| `weapon.3`       | Railroad Spike Dirk     | Physical  |
+| `weapon.4`       | Copper War Pick         | Lightning |
+| `weapon.5`       | Coyote-Fang Machete     | Physical  |
+| `weapon.6`       | Stormlash Whip          | Lightning |
+| `weapon.7`       | Brimstone Hatchet       | Fire      |
+| `weapon.8`       | Gravedigger’s Spade-Axe | Cursed    |
+| `weapon.9`       | Hellfire Saber          | Fire      |
+| `weapon.10`      | Sundown Scythe          | Fire      |
+| `weapon.default` | fallback                |           |
 
 ### Remedies (heal 2–10)
 

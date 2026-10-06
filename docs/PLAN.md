@@ -69,8 +69,8 @@ Setting: a cursed silver mine under a ghost town. Each room is a chamber further
 
 ### Weapons (♦, 2–10)
 
-No firearms. Magic-touched frontier objects shared with the Weird West Bounty Hunter setting:
-2 Thorned Spur · 3 Silver Pocket Knife · 4 Hot Coal · 5 Static Horseshoe · 6 Rusty Hatchet · 7 Lightning Rod Fragment · 8 Storm Jar · 9 Hellfire Branding Iron · 10 Thunderhead in a Bottle
+No firearms. Pulp-fantasy frontier weapons, crude at low values and cursed or elemental relics near the top:
+2 Coyote Bone Shiv · 3 Railroad Spike Dirk · 4 Copper War Pick · 5 Coyote-Fang Machete · 6 Stormlash Whip · 7 Brimstone Hatchet · 8 Gravedigger’s Spade-Axe · 9 Hellfire Saber · 10 Sundown Scythe
 
 ### Potions (♥, heal 2–10)
 
@@ -171,7 +171,7 @@ To add real art:
 **Placeholders:** one parametric SVG template per role, drawn in code and written out as 31 files:
 
 - **Monster:** skull/horned silhouette. It grows larger, darker and spikier as the value goes up, with a red damage badge.
-- **Weapon:** a distinct object per value (spur, knife, coal, horseshoe, hatchet, lightning rod, storm jar, branding iron, bottled thunderhead) with fire or lightning effects on the stronger ones, and a steel-blue attack badge.
+- **Weapon:** a distinct weapon silhouette per value (bone shiv, spike dirk, war pick, fanged machete, lightning whip, burning hatchet, haunted spade-axe, flaming saber, sunset scythe) with fire or lightning effects on the stronger ones, and a steel-blue attack badge.
 - **Potion:** bottle silhouette whose liquid level and glow scale with the value, with a green heal badge.
 
 Each placeholder also shows the item's name. The UI always draws the value badge **on top of** the art, so your real art doesn't need numbers painted in.
@@ -197,7 +197,7 @@ Portrait layout, one screen with no scrolling during play:
 │   │  🗡5   │  │  ⚔9   │    │
 │   └───────┘  └───────┘    │
 ├───────────────────────────┤
-│ Equipped: Hatchet (6)     │  Weapon panel: weapon + stack of slain monsters,
+│ Equipped: Stormlash (6)   │  Weapon panel: weapon + stack of slain monsters,
 │ Slain: 9 → 7   limit ≤ 7  │  current limit shown
 ├───────────────────────────┤
 │  [  Sneak Past (avoid)  ] │  Action bar (disabled with reason when not allowed)
@@ -205,7 +205,7 @@ Portrait layout, one screen with no scrolling during play:
 ```
 
 - **Tap a potion or weapon:** it resolves at once with a short animation. A potion that won't heal shows a "Already drank this room — will be wasted" warning on the tile before you tap.
-- **Tap a monster with a weapon equipped:** a bottom sheet opens with two large buttons that show the damage up front, e.g. **"Rusty Hatchet — take 1"** and **"Bare-handed — take 7"**. If the weapon isn't allowed, its button is disabled and explains why ("Too worn: limit ≤ 7"). With no weapon, the fight resolves at once. Tapping a card that would kill you asks for confirmation.
+- **Tap a monster with a weapon equipped:** a bottom sheet opens with two large buttons that show the damage up front, e.g. **"Stormlash Whip — take 1"** and **"Bare-handed — take 7"**. If the weapon isn't allowed, its button is disabled and explains why ("Too worn: limit ≤ 7"). With no weapon, the fight resolves at once. Tapping a card that would kill you asks for confirmation.
 - **Feedback:** health bar shake and red flash on damage, green pulse on heal, the slain monster sliding onto the weapon stack, and the remaining tile staying put while 3 new tiles deal in.
 - **End screen:** win or loss, the score from §2, a short run summary, best score, and "Ride again".
 - **Also:** a "How to play" screen in the game's own terms (no card jargon), resume of an interrupted run on reload, and a dusty frontier palette and fonts.
@@ -240,5 +240,5 @@ Each milestone is its own commit (or small set of commits) pushed to GitHub. I'l
 - **Name:** Weird West Dungeon Crawl (working title).
 - **GitHub:** plain `git` (no GitHub CLI); remote https://github.com/plowdk51/weird-west-dungeon-crawl.
 - **Rules:** standard Scoundrel, no house rules.
-- **Weapons:** no guns. Weapons reuse the Weird West Bounty Hunter item set (pulp-fantasy Western objects with physical, fire and electric power).
+- **Weapons:** no guns, and they should feel like weapons rather than everyday objects. Same pulp-fantasy Weird West vibe as the Bounty Hunter game, with names unique to this game.
 - **Art:** placeholder SVGs now; clubs and spades share art for now, with per-suit overrides supported.

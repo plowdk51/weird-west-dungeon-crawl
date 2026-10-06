@@ -26,21 +26,27 @@ const byRole: Record<Role, Record<number, CardInfo>> = {
     14: { name: 'The Pale Rider', flavor: 'What waits at the bottom of the mine.' },
   },
   weapon: {
-    2: { name: 'Thorned Spur', flavor: 'Grew its own thorns overnight. Kicks like a bramble.' },
-    3: { name: 'Silver Pocket Knife', flavor: 'Small, shiny, and spooks the restless dead.' },
-    4: { name: 'Hot Coal', flavor: 'Plucked from a stove that never went out.' },
-    5: { name: 'Static Horseshoe', flavor: 'Lucky side up. Crackles when you swing it.' },
-    6: { name: 'Rusty Hatchet', flavor: 'Rust and grit, but it still bites.' },
-    7: {
-      name: 'Lightning Rod Fragment',
-      flavor: 'Snapped off a church steeple mid-storm. Still humming.',
+    2: { name: 'Coyote Bone Shiv', flavor: 'Whittled from something that used to howl.' },
+    3: {
+      name: 'Railroad Spike Dirk',
+      flavor: 'Hammered flat on the anvil at the end of the line.',
     },
-    8: { name: 'Storm Jar', flavor: 'A whole thunderstorm, screwed down tight.' },
-    9: {
-      name: 'Hellfire Branding Iron',
-      flavor: 'Glows red-hot and never cools. Brands what it strikes.',
+    4: {
+      name: 'Copper War Pick',
+      flavor: 'A miner’s pick reforged for war. Sparks fly when it lands.',
     },
-    10: { name: 'Thunderhead in a Bottle', flavor: 'Uncork it and stand well back.' },
+    5: {
+      name: 'Coyote-Fang Machete',
+      flavor: 'Every fang along its edge came from a different coyote.',
+    },
+    6: { name: 'Stormlash Whip', flavor: 'Cracks like thunder because it is thunder.' },
+    7: { name: 'Brimstone Hatchet', flavor: 'Smolders in its sheath and stinks of sulfur.' },
+    8: {
+      name: 'Gravedigger’s Spade-Axe',
+      flavor: 'Hums with the voices of everyone it ever buried.',
+    },
+    9: { name: 'Hellfire Saber', flavor: 'Forged in a burning saloon. It has never cooled.' },
+    10: { name: 'Sundown Scythe', flavor: 'Its edge glows like the last light of day.' },
   },
   potion: {
     2: { name: 'Canteen', flavor: 'Warm, metallic, wet enough.' },
