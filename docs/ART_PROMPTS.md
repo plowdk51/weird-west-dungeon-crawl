@@ -248,7 +248,17 @@ Save as: `art-src/icon.png`, then run `npm run art:optimize`. No manifest line i
 
 Unlike the card art, the icon needs a **solid background** that fills the whole square. iPhones show transparent areas as black, and Android crops the icon into circles and other shapes. Keep the emblem inside the middle 70% so nothing important is cut off.
 
-Pick one concept (or mix them):
+### Chosen · Mine lantern
+
+Matches the hanging lanterns in the mine background: warm amber light rather than ghost-green.
+
+> Create a square 1:1 app icon. A bold emblem of a single old kerosene hurricane lantern, the kind that hangs in an old silver mine: a dark iron frame and wire carrying handle, a brass base and cap, a clear glass globe with a bright warm golden-amber flame inside. The lantern hangs from a short iron hook and chain at the top and casts a strong warm golden glow around itself, with a few tiny silver ore sparkles drifting in the light. Simple shapes, thick black ink outlines, high contrast, readable at very small sizes. The lantern sits centered inside the middle 70% of the square, standing upright and facing forward. Solid dark warm-brown background (#1c120c) filling the entire square edge to edge, with a soft amber radial glow behind the lantern that fades to the dark brown at the edges. Pulp-fantasy Weird West style, comic-book illustration, rich painterly color. No text, no letters, no numbers, no border, no frame, no rounded corners, no transparency.
+
+If the lantern comes out too detailed to read at icon size, reply: "Make it bolder and simpler: fewer small details, thicker outlines, and a bigger, brighter flame."
+
+### Other concepts
+
+Earlier options, kept for reference:
 
 ### Concept A · The Sun-Eater
 
