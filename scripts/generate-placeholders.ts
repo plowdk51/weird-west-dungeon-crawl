@@ -102,25 +102,27 @@ function monster(value: number): string {
       parts.push(scorpion(-26, 40, 0.7, 1), scorpion(38, 52, 0.6, -1), scorpion(6, -8, 1, 1));
       break;
 
-    case 4: // Rattler Bandit
-      dy = 6;
+    case 4: {
+      // Tumbleweed Imp: a snarl of dry branches with eyes, teeth and a temper
       parts.push(
-        `<path d="M30,76 Q-40,70 -20,40 Q0,14 -10,-16" fill="none" stroke="${INK}" stroke-width="30" stroke-linecap="round"/>`,
-        `<path d="M30,76 Q-40,70 -20,40 Q0,14 -10,-16" fill="none" stroke="#7a9a4a" stroke-width="22" stroke-linecap="round"/>`,
-        `<path d="M-16,52 L-2,46 M-14,30 L0,26 M-8,8 L6,4" stroke="#4a6a2a" stroke-width="4"/>`,
-        `<path d="M30,76 L44,70 L46,80 L58,74 L58,86 L44,86 Z" fill="#d9c8a0" ${stroke}/>`,
-        // head
-        `<ellipse cx="-10" cy="-30" rx="28" ry="22" fill="#7a9a4a" ${stroke}/>`,
-        `<rect x="-40" y="-40" width="60" height="12" rx="4" fill="#1c1410"/>`,
-        eyes(-10, -34, 11, 4),
-        // bandana
-        `<path d="M-36,-20 Q-10,-8 18,-20 L4,6 Z" fill="#c2412f" ${stroke}/>`,
-        // hat
-        `<ellipse cx="-10" cy="-50" rx="42" ry="8" fill="#6a4426" ${stroke}/>`,
-        `<path d="M-28,-52 Q-26,-82 -10,-78 Q6,-82 8,-52 Z" fill="#6a4426" ${stroke}/>`,
-        `<path d="M-8,-12 L-8,-4 M-12,-4 L-8,-4 L-4,0" stroke="#c2412f" stroke-width="2"/>`,
+        `<path d="M-86,60 Q-70,50 -56,58 M-90,40 Q-76,34 -64,40" fill="none" stroke="#c8a870" stroke-width="4" stroke-linecap="round" opacity="0.7"/>`,
+        `<circle cx="0" cy="10" r="62" fill="#c8a066" fill-opacity="0.35" ${stroke}/>`,
+      );
+      for (let i = 0; i < 9; i++) {
+        const a = (i / 9) * Math.PI;
+        parts.push(
+          `<ellipse cx="0" cy="10" rx="60" ry="${(18 + (i % 3) * 14).toFixed(0)}" transform="rotate(${((a * 180) / Math.PI).toFixed(0)} 0 10)" fill="none" stroke="#9a7440" stroke-width="3"/>`,
+        );
+      }
+      parts.push(
+        `<path d="M-50,-30 L-64,-50 M40,-40 L56,-62 M56,40 L74,52 M-56,44 L-72,58" stroke="#7a5a30" stroke-width="4" stroke-linecap="round"/>`,
+        `<path d="M-30,-6 L-12,0 M30,-6 L12,0" stroke="${INK}" stroke-width="5" stroke-linecap="round"/>`,
+        eyes(0, 8, 18, 7),
+        `<path d="M-28,26 Q0,50 28,26 Z" fill="#3a1010" ${stroke}/>`,
+        fangs(-22, 22, 27, 5, 8),
       );
       break;
+    }
 
     case 5: // Vulture Harpy
       dy = 8;
@@ -266,24 +268,39 @@ function monster(value: number): string {
       );
       break;
 
-    case 12: // Copperhead Queen
+    case 12: {
+      // Phantom Stagecoach: a runaway ghost coach pulled by skeleton horses
+      glow = '#8affe0';
+      k = 0.9;
+      dx = -12;
+      dy = 6;
+      const ghost = '#bfffe8';
+      const horse = (x: number, y: number) =>
+        `<path d="M${x - 14},${y + 12} L${x - 20},${y + 46} M${x + 10},${y + 12} L${x + 16},${y + 46}" stroke="${ghost}" stroke-width="4" stroke-linecap="round"/>` +
+        `<ellipse cx="${x}" cy="${y + 4}" rx="22" ry="12" fill="none" stroke="${ghost}" stroke-width="4"/>` +
+        `<path d="M${x - 12},${y} L${x + 10},${y} M${x - 8},${y + 8} L${x + 8},${y + 8}" stroke="${ghost}" stroke-width="2.5"/>` +
+        `<path d="M${x + 18},${y - 2} L${x + 26},${y - 30} L${x + 44},${y - 22} L${x + 40},${y - 12} L${x + 28},${y - 14} Z" fill="#e8dcc0" ${stroke}/>` +
+        `<circle cx="${x + 32}" cy="${y - 22}" r="3" fill="${eye}"/>`;
       parts.push(
-        `<path d="M-60,80 Q-80,40 -30,40 Q30,40 60,60 Q80,80 30,86 Z" fill="#b8642e" ${stroke}/>`,
-        `<path d="M-6,46 Q-12,10 0,-10" fill="none" stroke="${INK}" stroke-width="34" stroke-linecap="round"/>`,
-        `<path d="M-6,46 Q-12,10 0,-10" fill="none" stroke="#c8743a" stroke-width="26" stroke-linecap="round"/>`,
-        // hood
-        `<path d="M0,-80 Q60,-60 50,0 Q30,30 0,20 Q-30,30 -50,0 Q-60,-60 0,-80 Z" fill="#b8642e" ${stroke}/>`,
-        `<path d="M0,-60 Q36,-46 30,-6 Q16,10 0,6 Q-16,10 -30,-6 Q-36,-46 0,-60 Z" fill="#e0a060"/>`,
-        `<path d="M-14,-40 L-20,-20 M14,-40 L20,-20 M0,-30 L0,-10" stroke="#8a3a1a" stroke-width="4"/>`,
-        // head
-        `<ellipse cx="0" cy="-40" rx="20" ry="16" fill="#c8743a" ${stroke}/>`,
-        eyes(0, -44, 9, 4),
-        fangs(-6, 6, -28, 2, 10),
-        // crown of fangs
-        fangs(-30, 30, -80, 7, -18),
-        `<path d="M-34,-80 Q0,-90 34,-80" fill="none" stroke="#c9a64a" stroke-width="6"/>`,
+        `<path d="M-100,72 Q-80,60 -60,74 Q-40,86 -20,72" fill="none" stroke="${ghost}" stroke-width="4" opacity="0.5"/>`,
+        // horses (back first)
+        horse(30, -2),
+        horse(48, 8),
+        `<path d="M-4,-6 L40,4" stroke="${ghost}" stroke-width="3"/>`,
+        // coach
+        `<path d="M-80,-50 L-6,-50 L0,30 L-86,30 Z" fill="#2a3a3a" fill-opacity="0.9" stroke="${ghost}" stroke-width="4"/>`,
+        `<rect x="-70" y="-38" width="22" height="24" fill="${eye}" fill-opacity="0.7" stroke="${ghost}" stroke-width="3"/>`,
+        `<rect x="-38" y="-38" width="22" height="24" fill="${eye}" fill-opacity="0.7" stroke="${ghost}" stroke-width="3"/>`,
+        `<path d="M-84,-50 L-74,-62 L-12,-62 L-2,-50" fill="#1c2a2a" stroke="${ghost}" stroke-width="4"/>`,
+        `<circle cx="-2" cy="-40" r="6" fill="#ffe08a" stroke="${INK}" stroke-width="2"/>`,
+        // wheels
+        `<circle cx="-68" cy="42" r="20" fill="none" stroke="${ghost}" stroke-width="5"/>`,
+        `<path d="M-88,42 L-48,42 M-68,22 L-68,62" stroke="${ghost}" stroke-width="3"/>`,
+        `<circle cx="-18" cy="44" r="16" fill="none" stroke="${ghost}" stroke-width="5"/>`,
+        `<path d="M-34,44 L-2,44 M-18,28 L-18,60" stroke="${ghost}" stroke-width="3"/>`,
       );
       break;
+    }
 
     case 13: // Canyon Colossus
       k = 0.95;

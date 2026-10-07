@@ -58,7 +58,7 @@ Setting: a cursed silver mine under a ghost town. Each room is a chamber further
 ### Monsters (♣ and ♠, damage 2–14)
 
 Pulp-fantasy creatures, critters at low values and legends at 11–14:
-2 Jackalope Biter · 3 Scorpion Swarm · 4 Rattler Bandit · 5 Vulture Harpy · 6 Wash Wisp · 7 Bone Rattler · 8 Snake-Oil Salesman · 9 Mine-Cart Mimic · 10 Copper Golem · 11 Storm Witch · 12 Copperhead Queen · 13 Canyon Colossus · 14 The Sun-Eater
+2 Jackalope Biter · 3 Scorpion Swarm · 4 Tumbleweed Imp · 5 Vulture Harpy · 6 Wash Wisp · 7 Bone Rattler · 8 Snake-Oil Salesman · 9 Mine-Cart Mimic · 10 Copper Golem · 11 Storm Witch · 12 Phantom Stagecoach · 13 Canyon Colossus · 14 The Sun-Eater
 
 ### Weapons (♦, 2–10)
 
@@ -163,7 +163,7 @@ To add real art:
 
 **Placeholders:** one parametric SVG template per role, drawn in code and written out as 31 files:
 
-- **Monster:** a distinct creature silhouette per value (jackalope, scorpions, snake bandit, harpy, wisp, bone snake, huckster, mine-cart mimic, golem, witch, serpent queen, rock giant, sun-swallowing serpent). Eyes and auras intensify with the value, with a red damage badge.
+- **Monster:** a distinct creature silhouette per value (jackalope, scorpions, tumbleweed, harpy, wisp, bone snake, huckster, mine-cart mimic, golem, witch, ghost stagecoach, rock giant, sun-swallowing serpent). Eyes and auras intensify with the value, with a red damage badge.
 - **Weapon:** a distinct weapon silhouette per value (bone shiv, spike dirk, war pick, fanged machete, lightning whip, burning hatchet, haunted spade-axe, flaming saber, sunset scythe) with fire or lightning effects on the stronger ones, and a steel-blue attack badge.
 - **Potion:** bottle silhouette whose liquid level and glow scale with the value, with a green heal badge.
 

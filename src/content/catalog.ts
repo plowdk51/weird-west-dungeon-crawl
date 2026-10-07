@@ -14,8 +14,8 @@ const byRole: Record<Role, Record<number, CardInfo>> = {
     2: { name: 'Jackalope Biter', flavor: 'Antlers like a buck, teeth like a bear trap.' },
     3: { name: 'Scorpion Swarm', flavor: 'A skittering carpet of glowing tails.' },
     4: {
-      name: 'Rattler Bandit',
-      flavor: 'Wanted in three territories for highway robbery and shedding.',
+      name: 'Tumbleweed Imp',
+      flavor: 'Rolls in on the wind, picking fights with anything that stands still.',
     },
     5: { name: 'Vulture Harpy', flavor: 'Half buzzard, half hag, all appetite.' },
     6: { name: 'Wash Wisp', flavor: 'Follow the pretty light. Everybody does, once.' },
@@ -31,8 +31,8 @@ const byRole: Record<Role, Record<number, CardInfo>> = {
     },
     11: { name: 'Storm Witch', flavor: 'Rides a lightning rod and drags the weather behind her.' },
     12: {
-      name: 'Copperhead Queen',
-      flavor: 'She wears a crown of fangs, every one of them her own.',
+      name: 'Phantom Stagecoach',
+      flavor: 'Still running its route. The driver got off years ago.',
     },
     13: {
       name: 'Canyon Colossus',

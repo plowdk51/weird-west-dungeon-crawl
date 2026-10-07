@@ -42,7 +42,7 @@ Pulp-fantasy Weird West creatures: critters at low values, legends at 11–14. W
 | ----------------- | ------------------ |
 | `monster.2`       | Jackalope Biter    |
 | `monster.3`       | Scorpion Swarm     |
-| `monster.4`       | Rattler Bandit     |
+| `monster.4`       | Tumbleweed Imp     |
 | `monster.5`       | Vulture Harpy      |
 | `monster.6`       | Wash Wisp          |
 | `monster.7`       | Bone Rattler       |
@@ -50,7 +50,7 @@ Pulp-fantasy Weird West creatures: critters at low values, legends at 11–14. W
 | `monster.9`       | Mine-Cart Mimic    |
 | `monster.10`      | Copper Golem       |
 | `monster.11`      | Storm Witch        |
-| `monster.12`      | Copperhead Queen   |
+| `monster.12`      | Phantom Stagecoach |
 | `monster.13`      | Canyon Colossus    |
 | `monster.14`      | The Sun-Eater      |
 | `monster.default` | fallback           |
