@@ -12,7 +12,10 @@ export interface CardInfo {
 const byRole: Record<Role, Record<number, CardInfo>> = {
   monster: {
     2: { name: 'Jackalope Biter', flavor: 'Antlers like a buck, teeth like a bear trap.' },
-    3: { name: 'Scorpion Swarm', flavor: 'A skittering carpet of glowing tails.' },
+    3: {
+      name: 'Glowtail Scorpion',
+      flavor: 'Its stinger lights the way, right up until it doesn’t.',
+    },
     4: {
       name: 'Tumbleweed Imp',
       flavor: 'Rolls in on the wind, picking fights with anything that stands still.',

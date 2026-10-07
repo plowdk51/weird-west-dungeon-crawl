@@ -5,3 +5,6 @@ coverage/
 .DS_Store
 .vscode/*
 !.vscode/extensions.json
+
+# Full-size art masters (kept locally; optimized copies live in public/art)
+art-src/

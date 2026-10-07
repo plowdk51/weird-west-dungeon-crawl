@@ -16,6 +16,7 @@ npm run dev          # local dev server
 npm run dev:phone    # expose on your LAN to test on a phone
 npm test             # rules-engine tests
 npm run build        # type-check + production build into dist/
+npm run art:optimize # art-src/ masters → 512×512 WebP in public/art/
 ```
 
 ## Docs

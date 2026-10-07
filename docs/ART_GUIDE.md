@@ -6,22 +6,24 @@ Prompts for generating every image with an AI image tool are in [ART_PROMPTS.md]
 
 ## How to add art
 
-1. Put the image file under `public/art/`, for example `public/art/monsters/bone-rattler.png`.
-2. Add one line to [`src/art/manifest.ts`](../src/art/manifest.ts):
+1. Save the full-size image (for example ChatGPT's 1024 PNG) under `art-src/`, in the matching subfolder: `art-src/monsters/bone-rattler.png`. This folder is your masters folder. Git ignores it, so it never goes to GitHub; back it up yourself.
+2. Run `npm run art:optimize`. It writes a small 512×512 WebP copy to the same place under `public/art/` (`public/art/monsters/bone-rattler.webp`) and skips images that haven't changed. Add `-- --force` to redo everything.
+3. Add one line to [`src/art/manifest.ts`](../src/art/manifest.ts) pointing at the WebP:
    ```ts
    export const artManifest: Record<string, string> = {
-     'monster.7': 'art/monsters/bone-rattler.png',
+     'monster.7': 'art/monsters/bone-rattler.webp',
    };
    ```
+4. Commit the WebP and the manifest change. The masters stay on your PC.
 
-Paths are relative to `public/`, so leave off the `public/` prefix and any leading slash. Entries in the manifest always win over placeholders.
+Manifest paths are relative to `public/`, so leave off the `public/` prefix and any leading slash. Entries in the manifest always win over placeholders.
 
 To check your art, run `npm run dev` and open `/weird-west-dungeon-crawl/art-gallery.html`. It shows every card with its resolved art and key.
 
 ## File recommendations
 
-- **Format:** PNG or WebP with a transparent background. SVG also works.
-- **Size:** 512×512 px square. The art is scaled down with `object-fit: contain`, so other aspect ratios work but leave empty space.
+- **Masters:** PNG (or JPG/WebP) with a transparent background, any square size. 1024×1024 or larger is ideal.
+- **In the game:** the optimizer fits card art into 512×512 WebP, usually 50–110 KB each. Backgrounds under `art-src/ui/` keep their shape and are capped at 1290×2800.
 - **No numbers or names in the art.** The game draws the value badge (☠ 7, ⚔ 5, ✚ 8) and the name on top of the tile.
 - **Keep the subject centered** with a little padding. Tiles are portrait, and the name sits under the art.
 
@@ -43,7 +45,7 @@ Pulp-fantasy Weird West creatures: critters at low values, legends at 11–14. W
 | Key               | Name               |
 | ----------------- | ------------------ |
 | `monster.2`       | Jackalope Biter    |
-| `monster.3`       | Scorpion Swarm     |
+| `monster.3`       | Glowtail Scorpion  |
 | `monster.4`       | Tumbleweed Imp     |
 | `monster.5`       | Vulture Harpy      |
 | `monster.6`       | Wash Wisp          |
