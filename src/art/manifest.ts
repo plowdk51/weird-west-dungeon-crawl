@@ -17,4 +17,5 @@ export const artManifest: Record<string, string> = {
   'monster.2': 'art/monsters/jackalope-biter.webp',
   'monster.3': 'art/monsters/glowtail-scorpion.webp',
   'monster.4': 'art/monsters/tumbleweed-imp.webp',
+  'monster.5': 'art/monsters/vulture-harpy.webp',
 };
