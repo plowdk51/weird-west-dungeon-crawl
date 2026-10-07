@@ -110,7 +110,7 @@ Save a square master (1024×1024 or larger, **solid background**, no transparenc
 | `icon-192.png`, `icon-512.png` | 192×192, 512×512                      | Android home screen and installed app |
 | `maskable-512.png`             | 512×512, art shrunk to the middle 80% | Android’s cropped icon shapes         |
 
-Until `art-src/icon.png` exists, the icons come from a temporary Sun-Eater emblem (`scripts/placeholder-icon.svg`). Prompts for the icon are at the end of [ART_PROMPTS.md](ART_PROMPTS.md#app-icon).
+The current icon is the mine lantern. If `art-src/icon.png` is missing (for example on a fresh checkout), the optimizer falls back to a temporary Sun-Eater emblem (`scripts/placeholder-icon.svg`) — the committed icons in `public/icons/` are what the game actually uses. Prompts for the icon are at the end of [ART_PROMPTS.md](ART_PROMPTS.md#app-icon).
 
 ## Names and flavor text
 
