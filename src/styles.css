@@ -49,7 +49,7 @@ body {
 /* Custom background art: tint it so the HUD and message text stay readable. */
 .has-bg body {
   background:
-    linear-gradient(rgb(20 12 8 / 0.55), rgb(20 12 8 / 0.7)),
+    linear-gradient(rgb(20 12 8 / 0.68), rgb(20 12 8 / 0.8)),
     var(--bg-image) center / cover no-repeat,
     var(--bg);
 }
