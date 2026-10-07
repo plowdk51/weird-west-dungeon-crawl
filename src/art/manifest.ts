@@ -18,4 +18,8 @@ export const artManifest: Record<string, string> = {
   'monster.3': 'art/monsters/glowtail-scorpion.webp',
   'monster.4': 'art/monsters/tumbleweed-imp.webp',
   'monster.5': 'art/monsters/vulture-harpy.webp',
+  'monster.6': 'art/monsters/wash-wisp.webp',
+  'monster.7': 'art/monsters/bone-rattler.webp',
+  'monster.8': 'art/monsters/snake-oil-salesman.webp',
+  'ui.background': 'art/ui/mine-background.webp',
 };

@@ -33,7 +33,10 @@ export class App {
 
   constructor(private root: HTMLElement) {
     const bg = resolveArtKey(['ui.background']);
-    if (bg) document.documentElement.style.setProperty('--bg-image', `url("${bg}")`);
+    if (bg) {
+      document.documentElement.style.setProperty('--bg-image', `url("${bg}")`);
+      document.documentElement.classList.add('has-bg');
+    }
     root.addEventListener('click', (e) => this.onClick(e));
     this.renderTitle();
   }
