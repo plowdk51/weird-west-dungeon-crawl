@@ -134,7 +134,13 @@ Save as: `art-src/weapons/cactus-spiked-machete.png` · Manifest: `'weapon.5': '
 
 Save as: `art-src/weapons/stormlash-whip.png` · Manifest: `'weapon.6': 'art/weapons/stormlash-whip.webp',`
 
-> Create a square 1:1 image with a transparent background. A coiled bullwhip made of dark storm-blue braided leather, crackling with blue-white lightning along its whole length, the tip splitting into tiny forks of electricity, a worn leather handle. The whip curls in a loose dynamic spiral. Weapon shown on its own. Pulp-fantasy Weird West game item art, comic-book illustration with bold ink outlines, rich painterly color, gritty sun-bleached texture, dramatic rim lighting, weird and adventurous rather than horrific. Single subject, centered, fully in frame with generous margin on all sides, three-quarter view, square 1:1 composition, transparent background, no text, no letters, no numbers, no border, no frame, no watermark, no firearms.
+> Create a square 1:1 image with a transparent background. A single bullwhip lying neatly coiled, like a lasso hung on a hook: a short, straight, worn leather handle at the bottom, and from its end one continuous braided thong of dark storm-blue leather that wraps around in three neat, evenly spaced, non-overlapping oval loops, then trails out with a gentle curve to one thin tip. The whip is one unbroken piece from handle to tip: it never splits, forks, frays apart, knots, or has gaps. The leather braid stays solid and fully visible. Blue-white lightning crackles around the outside of the loops as a glow with small sparks, without replacing or breaking any part of the leather. Weapon shown on its own, not held. Pulp-fantasy Weird West game item art, comic-book illustration with bold ink outlines, rich painterly color, gritty sun-bleached texture, dramatic rim lighting, weird and adventurous rather than horrific. Single subject, centered, fully in frame with generous margin on all sides, three-quarter view, square 1:1 composition, transparent background, no text, no letters, no numbers, no border, no frame, no watermark, no firearms.
+
+If ChatGPT still tangles or breaks the whip, reply in the same chat with one of these:
+
+- "Make it simpler: fewer loops, and the whip is one continuous unbroken line from the handle to the tip."
+- "Keep the same style, but draw the whip without lightning first." Then: "Now add blue-white lightning glowing around it without changing the whip's shape."
+- "Lay the whip out in one smooth S-curve instead of coils, handle at the bottom left, tip at the top right."
 
 ### 7 · Brimstone Hatchet
 
