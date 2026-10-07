@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Temporary app icon until art-src/icon.png exists: the Sun-Eater coiled around the sun. -->
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="70%">
+      <stop offset="0" stop-color="#4a2c18"/>
+      <stop offset="1" stop-color="#1c120c"/>
+    </radialGradient>
+    <radialGradient id="sun">
+      <stop offset="0" stop-color="#fff2b0"/>
+      <stop offset="0.55" stop-color="#ffb84a"/>
+      <stop offset="1" stop-color="#e8641e"/>
+    </radialGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <circle cx="512" cy="512" r="250" fill="#ffb84a" opacity="0.18"/>
+  <circle cx="512" cy="512" r="190" fill="url(#sun)" stroke="#14100c" stroke-width="18"/>
+  <path d="M760,620 Q840,330 600,250 Q350,170 250,400 Q170,620 380,760 Q560,860 720,730"
+        fill="none" stroke="#14100c" stroke-width="120" stroke-linecap="round"/>
+  <path d="M760,620 Q840,330 600,250 Q350,170 250,400 Q170,620 380,760 Q560,860 720,730"
+        fill="none" stroke="#5a2a8a" stroke-width="84" stroke-linecap="round"/>
+  <path d="M760,620 Q840,330 600,250 Q350,170 250,400 Q170,620 380,760 Q560,860 720,730"
+        fill="none" stroke="#9a5ad8" stroke-width="16" stroke-dasharray="30 46" stroke-linecap="round"/>
+  <path d="M700,760 Q780,700 820,640 L700,600 Z" fill="#5a2a8a" stroke="#14100c" stroke-width="16" stroke-linejoin="round"/>
+  <path d="M700,760 Q720,820 650,850 L640,720 Z" fill="#5a2a8a" stroke="#14100c" stroke-width="16" stroke-linejoin="round"/>
+  <path d="M700,612 l18,44 l20,-38 Z M740,628 l14,40 l18,-34 Z" fill="#f5ecd6" stroke="#14100c" stroke-width="6"/>
+  <circle cx="770" cy="660" r="16" fill="#ff5a2a" stroke="#14100c" stroke-width="6"/>
+</svg>

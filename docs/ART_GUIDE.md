@@ -99,6 +99,19 @@ Frontier remedies: trail food and drinks at low values, bottled miracles at the 
 | --------------- | -------------------------------------- | ----------------------------------------------------------------------------------- |
 | `ui.background` | Full-screen background behind the game | Portrait, at least 1024×1536 (ChatGPT tall size), dark enough for light text on top |
 
+## App icon
+
+Save a square master (1024×1024 or larger, **solid background**, no transparency) as `art-src/icon.png` and run `npm run art:optimize`. It writes every size the game uses to `public/icons/`:
+
+| File                           | Size                                  | Used for                              |
+| ------------------------------ | ------------------------------------- | ------------------------------------- |
+| `favicon-32.png`               | 32×32                                 | Browser tab and bookmarks             |
+| `apple-touch-icon.png`         | 180×180                               | iPhone home screen                    |
+| `icon-192.png`, `icon-512.png` | 192×192, 512×512                      | Android home screen and installed app |
+| `maskable-512.png`             | 512×512, art shrunk to the middle 80% | Android’s cropped icon shapes         |
+
+Until `art-src/icon.png` exists, the icons come from a temporary Sun-Eater emblem (`scripts/placeholder-icon.svg`). Prompts for the icon are at the end of [ART_PROMPTS.md](ART_PROMPTS.md#app-icon).
+
 ## Names and flavor text
 
 Names and flavor lines are in [`src/content/catalog.ts`](../src/content/catalog.ts). Change them freely; they don't affect the rules.

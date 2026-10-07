@@ -237,3 +237,33 @@ Save as: `art-src/ui/mine-background.png` · Manifest: `'ui.background': 'art/ui
 Size: ChatGPT makes tall images at 1024 × 1536 (2:3), which is enough; the game crops it to fill the screen. No transparency; this one fills the whole screen behind the game.
 
 > Create a tall 2:3 portrait image. Background illustration of the inside of an old haunted silver mine beneath a Weird West ghost town: rough rock walls with veins of faintly glowing silver ore, timber support beams, a rail track curving away into darkness, a few hanging lanterns giving warm pools of light. Dark, low-contrast and moody so light text and cards stay readable on top, with the most detail near the center and quiet darker edges. Pulp-fantasy Weird West style, comic-book illustration with bold ink outlines, rich painterly color, gritty texture, weird and adventurous rather than horrific. No characters, no text, no letters, no numbers, no border, no watermark.
+
+---
+
+## App icon
+
+The icon for the phone home screen (installed app or bookmark), the browser tab and bookmarks. It's shown as small as about 48 px, so it must be one bold, simple emblem rather than a scene.
+
+Save as: `art-src/icon.png`, then run `npm run art:optimize`. No manifest line is needed: the optimizer makes every icon size (favicon, iPhone, Android and the Android "maskable" version) in `public/icons/`.
+
+Unlike the card art, the icon needs a **solid background** that fills the whole square. iPhones show transparent areas as black, and Android crops the icon into circles and other shapes. Keep the emblem inside the middle 70% so nothing important is cut off.
+
+Pick one concept (or mix them):
+
+### Concept A · The Sun-Eater
+
+> Create a square 1:1 app icon. A bold emblem of a purple-scaled serpent coiled in a ring around a blazing golden sun, its fanged jaws open at the sun's edge, glowing violet eye. Simple shapes, thick black ink outlines, high contrast, readable at very small sizes. The emblem sits centered inside the middle 70% of the square. Solid dark warm-brown background (#1c120c) with a subtle radial glow behind the sun, filling the entire square edge to edge. Pulp-fantasy Weird West style, comic-book illustration, rich painterly color. No text, no letters, no numbers, no border, no frame, no rounded corners, no transparency.
+
+### Concept B · Outlaw skull
+
+> Create a square 1:1 app icon. A bold emblem of a grinning skull wearing a battered cowboy hat, eye sockets glowing ember-orange, over two crossed miner's pickaxes. Simple shapes, thick black ink outlines, high contrast, readable at very small sizes. The emblem sits centered inside the middle 70% of the square. Solid dark warm-brown background (#1c120c) with a subtle orange glow behind the skull, filling the entire square edge to edge. Pulp-fantasy Weird West style, comic-book illustration, rich painterly color, weird and adventurous rather than horrific. No text, no letters, no numbers, no border, no frame, no rounded corners, no transparency.
+
+### Concept C · Haunted lantern
+
+> Create a square 1:1 app icon. A bold emblem of an old brass miner's lantern glowing with eerie mint-green ghost-light, with a faint spooky face in the flame, framed by the wooden timbers of a mine-shaft entrance. Simple shapes, thick black ink outlines, high contrast, readable at very small sizes. The emblem sits centered inside the middle 70% of the square. Solid dark warm-brown background (#1c120c) with a soft green glow around the lantern, filling the entire square edge to edge. Pulp-fantasy Weird West style, comic-book illustration, rich painterly color. No text, no letters, no numbers, no border, no frame, no rounded corners, no transparency.
+
+### Concept D · Jackalope mascot
+
+> Create a square 1:1 app icon. A bold head-and-shoulders emblem of a scrappy jackalope, a desert jackrabbit with branching deer antlers, glowing yellow eyes and a fanged underbite grin, facing forward like a mascot. Simple shapes, thick black ink outlines, high contrast, readable at very small sizes. The emblem sits centered inside the middle 70% of the square. Solid dark warm-brown background (#1c120c) with a subtle golden glow behind the head, filling the entire square edge to edge. Pulp-fantasy Weird West style, comic-book illustration, rich painterly color. No text, no letters, no numbers, no border, no frame, no rounded corners, no transparency.
+
+**Check it small:** after generating, zoom the image out to about the size of an app icon on your phone. If the main shape blurs into the background, ask ChatGPT for "bolder, simpler shapes and stronger contrast."

@@ -7,6 +7,7 @@ a playing card — every card is a monster, weapon, or potion with its own art.
 ## Play
 
 - Latest build: https://plowdk51.github.io/weird-west-dungeon-crawl/
+- Installable: in Chrome on Android use the menu’s **Install app** (or **Add to Home screen**); on iPhone use Safari’s **Share → Add to Home Screen**. After the first load it works offline.
 
 ## Develop
 
