@@ -2,6 +2,8 @@
 
 The game ships with generated placeholder SVGs. Replacing any of them with your own art takes two steps and no code beyond one line.
 
+Prompts for generating every image with an AI image tool are in [ART_PROMPTS.md](ART_PROMPTS.md).
+
 ## How to add art
 
 1. Put the image file under `public/art/`, for example `public/art/monsters/bone-rattler.png`.

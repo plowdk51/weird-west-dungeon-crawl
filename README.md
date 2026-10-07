@@ -22,3 +22,4 @@ npm run build        # type-check + production build into dist/
 
 - [Build plan](docs/PLAN.md)
 - [Art guide](docs/ART_GUIDE.md) — how to replace placeholder art with your own images
+- [AI image prompts](docs/ART_PROMPTS.md) — a ready-to-paste prompt for every art slot
