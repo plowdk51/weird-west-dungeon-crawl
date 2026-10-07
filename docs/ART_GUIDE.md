@@ -74,13 +74,20 @@ No firearms. Pulp-fantasy frontier weapons: crude and homemade at low values, cu
 
 ### Remedies (heal 2–10)
 
-| Key        | Name           | Key              | Name          |
-| ---------- | -------------- | ---------------- | ------------- |
-| `potion.2` | Canteen        | `potion.7`       | Snake Oil     |
-| `potion.3` | Sarsaparilla   | `potion.8`       | Doc's Tonic   |
-| `potion.4` | Camp Coffee    | `potion.9`       | Spirit Elixir |
-| `potion.5` | Field Bandages | `potion.10`      | Holy Water    |
-| `potion.6` | Rotgut Whiskey | `potion.default` | fallback      |
+Frontier remedies: trail food and drinks at low values, bottled miracles at the top.
+
+| Key              | Name                      |
+| ---------------- | ------------------------- |
+| `potion.2`       | Prickly Pear Juice        |
+| `potion.3`       | Sarsaparilla              |
+| `potion.4`       | Cowboy Coffee             |
+| `potion.5`       | Sweet Tea Jug             |
+| `potion.6`       | Hot Spring Flask          |
+| `potion.7`       | Silver Spring Water       |
+| `potion.8`       | Mother Lode Mineral Water |
+| `potion.9`       | Starlight Whiskey         |
+| `potion.10`      | Bottled Sunrise           |
+| `potion.default` | fallback                  |
 
 ### UI
 

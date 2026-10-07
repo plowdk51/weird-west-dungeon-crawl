@@ -67,15 +67,33 @@ const byRole: Record<Role, Record<number, CardInfo>> = {
     10: { name: 'Sundown Scythe', flavor: 'Its edge glows like the last light of day.' },
   },
   potion: {
-    2: { name: 'Canteen', flavor: 'Warm, metallic, wet enough.' },
+    2: { name: 'Prickly Pear Juice', flavor: 'Tart cactus-fruit juice, squeezed on the trail.' },
     3: { name: 'Sarsaparilla', flavor: 'Sweet, fizzy, and almost medicinal.' },
-    4: { name: 'Camp Coffee', flavor: 'Thick enough to stand a spoon in.' },
-    5: { name: 'Field Bandages', flavor: 'Mostly clean.' },
-    6: { name: 'Rotgut Whiskey', flavor: 'Burns going down. Burns the pain out.' },
-    7: { name: 'Snake Oil', flavor: 'Cures what ails you. Allegedly.' },
-    8: { name: "Doc's Tonic", flavor: 'The doc swore by it. The doc is missing.' },
-    9: { name: 'Spirit Elixir', flavor: 'Glows faintly. Tastes like lightning.' },
-    10: { name: 'Holy Water', flavor: 'From the last church before the desert.' },
+    4: {
+      name: 'Cowboy Coffee',
+      flavor: 'Boiled in a sock. Strong enough to wake the nearly dead.',
+    },
+    5: { name: 'Sweet Tea Jug', flavor: 'Cold, sweet, and somehow never runs dry.' },
+    6: {
+      name: 'Hot Spring Flask',
+      flavor: 'Water from an underground hot spring, still steaming.',
+    },
+    7: {
+      name: 'Silver Spring Water',
+      flavor: 'Drawn from a spring beneath the silver vein. It shines in the dark.',
+    },
+    8: {
+      name: 'Mother Lode Mineral Water',
+      flavor: 'Fizzy water from the deepest seam, tingling with ore.',
+    },
+    9: {
+      name: 'Starlight Whiskey',
+      flavor: 'Distilled under a meteor shower. Every sip twinkles.',
+    },
+    10: {
+      name: 'Bottled Sunrise',
+      flavor: 'The first light of dawn, corked. The Sun-Eater can’t have this one.',
+    },
   },
 };
 

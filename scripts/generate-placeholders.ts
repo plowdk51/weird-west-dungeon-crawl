@@ -551,51 +551,176 @@ function weapon(value: number): string {
   );
 }
 
-// ------------------------------------------------------------------ potions
+// ------------------------------------------------------------------ remedies
 
+/**
+ * Frontier remedies: trail food and drinks at low values, bottled miracles at the top.
+ * Each value gets its own container; glow and sparkle grow with the healing.
+ */
 function potion(value: number): string {
-  const t = (value - 2) / 8;
-  const s = lerp(0.68, 1, t);
-  const liquid = ramp(['#8a6a3a', '#b04a2a', '#c8202f', '#7a3cff', '#7fe6ff'], t);
-  const level = lerp(0.35, 0.95, t);
-  const bodyTop = -30;
-  const bodyBottom = 70;
-  const fillY = bodyBottom - (bodyBottom - bodyTop) * level;
+  const INK = '#14100c';
+  const stroke = `stroke="${INK}" stroke-width="4"`;
+  const sparkle = (x: number, y: number, r = 7, fill = '#fff6c8') =>
+    `<path d="M${x},${y - r} L${x + r * 0.3},${y - r * 0.3} L${x + r},${y} L${x + r * 0.3},${y + r * 0.3} L${x},${y + r} L${x - r * 0.3},${y + r * 0.3} L${x - r},${y} L${x - r * 0.3},${y - r * 0.3} Z" fill="${fill}"/>`;
+  const steam = (x: number, y: number, h = 40) =>
+    `<path d="M${x},${y} Q${x - 10},${y - h * 0.3} ${x},${y - h * 0.55} Q${x + 10},${y - h * 0.8} ${x},${y - h}" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.75"/>`;
+  const shine = (d: string) =>
+    `<path d="${d}" fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="6" stroke-linecap="round"/>`;
   const parts: string[] = [];
-  if (value >= 8) parts.push(`<circle cx="0" cy="20" r="96" fill="url(#glow)"/>`);
-  parts.push(
-    `<clipPath id="bottle"><path d="M-14,-62 L14,-62 L14,-36 Q56,-26 56,20 Q56,72 0,72 Q-56,72 -56,20 Q-56,-26 -14,-36 Z"/></clipPath>`,
-    `<path d="M-14,-62 L14,-62 L14,-36 Q56,-26 56,20 Q56,72 0,72 Q-56,72 -56,20 Q-56,-26 -14,-36 Z" fill="#e8e2d0" fill-opacity="0.25"/>`,
-    `<rect x="-60" y="${fillY.toFixed(1)}" width="120" height="${(80 - fillY).toFixed(1)}" fill="${liquid}" clip-path="url(#bottle)"/>`,
-    `<path d="M-14,-62 L14,-62 L14,-36 Q56,-26 56,20 Q56,72 0,72 Q-56,72 -56,20 Q-56,-26 -14,-36 Z" fill="none" stroke="#14100c" stroke-width="4"/>`,
-    `<rect x="-17" y="-80" width="34" height="20" rx="4" fill="#9a6a3c" stroke="#14100c" stroke-width="4"/>`,
-    `<path d="M-38,4 Q-40,-16 -24,-24" fill="none" stroke="#ffffff" stroke-opacity="0.6" stroke-width="6" stroke-linecap="round"/>`,
-  );
-  // Label band on mid-tier tonics.
-  if (value >= 5 && value <= 8) {
-    parts.push(
-      `<rect x="-34" y="18" width="68" height="24" rx="3" fill="#efe2bf" stroke="#14100c" stroke-width="3"/><path d="M-20,30 L20,30" stroke="#7a2a1a" stroke-width="4"/>`,
-    );
+  let glow: string | null = null;
+  let defs = '';
+
+  switch (value) {
+    case 2: // Prickly Pear Juice: cactus fruit beside a cup of pink juice
+      parts.push(
+        `<ellipse cx="-36" cy="-10" rx="24" ry="30" fill="#c8285a" ${stroke}/>`,
+        `<ellipse cx="-50" cy="34" rx="20" ry="24" fill="#a81e4a" ${stroke}/>`,
+        `<path d="M-40,-36 L-44,-46 M-28,-26 L-20,-32 M-46,-6 L-56,-8 M-30,6 L-22,10 M-56,24 L-64,20 M-44,44 L-38,52" stroke="#f3e6b0" stroke-width="3" stroke-linecap="round"/>`,
+        `<path d="M-46,-40 Q-36,-56 -26,-40" fill="#5d8a3a" ${stroke}/>`,
+        `<path d="M6,-14 L60,-14 L52,60 L14,60 Z" fill="#e8f0f0" fill-opacity="0.35"/>`,
+        `<path d="M10,10 L56,10 L52,60 L14,60 Z" fill="#e8467a"/>`,
+        `<path d="M6,-14 L60,-14 L52,60 L14,60 Z" fill="none" ${stroke}/>`,
+        shine('M18,-4 L22,48'),
+        `<circle cx="42" cy="-14" r="12" fill="#c8285a" ${stroke}/>`,
+      );
+      break;
+
+    case 3: // Sarsaparilla: long-neck brown soda bottle, fizzing
+      parts.push(
+        `<path d="M-10,-80 L10,-80 L10,-40 Q30,-30 30,-6 L30,70 Q30,78 22,78 L-22,78 Q-30,78 -30,70 L-30,-6 Q-30,-30 -10,-40 Z" fill="#6a3a1a" ${stroke}/>`,
+        `<rect x="-30" y="12" width="60" height="34" fill="#f0e2bf" ${stroke}/>`,
+        `<path d="M-18,24 Q0,16 18,24 M-14,34 L14,34" fill="none" stroke="#a82a1a" stroke-width="4"/>`,
+        `<rect x="-13" y="-92" width="26" height="14" rx="3" fill="#c9a64a" ${stroke}/>`,
+        shine('M-20,-4 L-20,4 M-20,54 L-20,66'),
+        `<circle cx="-6" cy="-102" r="4" fill="#fff"/><circle cx="6" cy="-110" r="3" fill="#fff"/><circle cx="-2" cy="-118" r="2.5" fill="#fff"/>`,
+      );
+      break;
+
+    case 4: // Cowboy Coffee: speckled enamel pot and tin cup
+      parts.push(
+        steam(-14, -62),
+        steam(4, -66, 46),
+        `<path d="M-50,-40 L22,-40 L32,60 L-60,60 Z" fill="#2f5a8a" ${stroke}/>`,
+        `<path d="M22,-26 Q56,-20 50,24 L40,22 Q44,-6 22,-12" fill="#2f5a8a" ${stroke}/>`,
+        `<path d="M-54,-30 Q-80,-44 -86,-60 L-74,-62 Q-68,-48 -52,-44" fill="#2f5a8a" ${stroke}/>`,
+        `<ellipse cx="-14" cy="-44" rx="38" ry="9" fill="#1f3a5a" ${stroke}/>`,
+        `<circle cx="-14" cy="-58" r="7" fill="#1f3a5a" ${stroke}/>`,
+        `<circle cx="-30" cy="0" r="3" fill="#dfe8f0"/><circle cx="-6" cy="20" r="3" fill="#dfe8f0"/><circle cx="10" cy="-10" r="3" fill="#dfe8f0"/><circle cx="-40" cy="36" r="3" fill="#dfe8f0"/><circle cx="16" cy="40" r="3" fill="#dfe8f0"/>`,
+        `<path d="M40,30 L80,30 L76,70 L44,70 Z" fill="#8a949e" ${stroke}/>`,
+        `<path d="M80,38 Q96,44 80,58" fill="none" ${stroke}/>`,
+        `<ellipse cx="60" cy="32" rx="18" ry="4" fill="#3a1e0e"/>`,
+      );
+      break;
+
+    case 5: // Sweet Tea Jug: stoneware jug with a sweating glass
+      parts.push(
+        `<path d="M-30,-60 L-6,-60 L-4,-44 Q30,-36 32,10 Q34,70 -18,72 Q-70,70 -68,10 Q-66,-36 -32,-44 Z" fill="#efe2bf" ${stroke}/>`,
+        `<path d="M-66,-6 Q-18,4 30,-6 L32,10 Q-18,20 -68,10 Z" fill="#8a5a2a"/>`,
+        `<path d="M-6,-50 Q24,-58 28,-30" fill="none" stroke="${INK}" stroke-width="8"/>`,
+        `<path d="M-6,-50 Q24,-58 28,-30" fill="none" stroke="#efe2bf" stroke-width="4"/>`,
+        `<rect x="-26" y="-76" width="16" height="18" rx="3" fill="#9a6a3c" ${stroke}/>`,
+        `<path d="M-40,30 L-36,40 M-30,30 L-26,40 M-20,30 L-16,40" stroke="#8a5a2a" stroke-width="4" stroke-linecap="round"/>`,
+        `<path d="M40,-6 L84,-6 L78,70 L46,70 Z" fill="#e8f0f0" fill-opacity="0.35"/>`,
+        `<path d="M42,10 L82,10 L78,70 L46,70 Z" fill="#c8862a"/>`,
+        `<rect x="52" y="16" width="12" height="12" rx="2" fill="#e8f4ff" fill-opacity="0.8"/><rect x="62" y="30" width="12" height="12" rx="2" fill="#e8f4ff" fill-opacity="0.8"/>`,
+        `<path d="M40,-6 L84,-6 L78,70 L46,70 Z" fill="none" ${stroke}/>`,
+        `<circle cx="80" cy="-6" r="10" fill="#f0e060" ${stroke}/>`,
+        `<circle cx="48" cy="40" r="2.5" fill="#fff"/><circle cx="76" cy="54" r="2.5" fill="#fff"/>`,
+      );
+      break;
+
+    case 6: // Hot Spring Flask: steaming metal hip flask
+      glow = '#ffb070';
+      parts.push(
+        steam(-14, -62, 44),
+        steam(10, -64, 52),
+        `<rect x="-48" y="-40" width="96" height="116" rx="22" fill="#9aa6b2" ${stroke}/>`,
+        `<rect x="-36" y="-26" width="72" height="88" rx="14" fill="#b8c2cc"/>`,
+        `<rect x="-14" y="-62" width="28" height="24" rx="4" fill="#7a848e" ${stroke}/>`,
+        `<path d="M-20,8 Q-10,-4 0,8 Q10,20 20,8" fill="none" stroke="#e86a2a" stroke-width="5" stroke-linecap="round"/>`,
+        `<path d="M-20,28 Q-10,16 0,28 Q10,40 20,28" fill="none" stroke="#e86a2a" stroke-width="5" stroke-linecap="round"/>`,
+        shine('M-34,-20 L-34,40'),
+      );
+      break;
+
+    case 7: // Silver Spring Water: vial of shimmering silver
+      glow = '#e0eaff';
+      defs += `<linearGradient id="silver" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="0.5" stop-color="#b8c4d4"/><stop offset="1" stop-color="#eef2f8"/></linearGradient>`;
+      parts.push(
+        `<path d="M-16,-70 L16,-70 L16,-30 Q46,-14 46,24 Q46,74 0,74 Q-46,74 -46,24 Q-46,-14 -16,-30 Z" fill="#e8f0f8" fill-opacity="0.3"/>`,
+        `<path d="M-44,10 Q0,-6 44,10 Q46,74 0,74 Q-46,74 -44,10 Z" fill="url(#silver)"/>`,
+        `<path d="M-30,30 Q-10,22 10,30 Q24,36 34,30" fill="none" stroke="#ffffff" stroke-width="3"/>`,
+        `<path d="M-16,-70 L16,-70 L16,-30 Q46,-14 46,24 Q46,74 0,74 Q-46,74 -46,24 Q-46,-14 -16,-30 Z" fill="none" ${stroke}/>`,
+        `<rect x="-20" y="-86" width="40" height="18" rx="4" fill="#8a949e" ${stroke}/>`,
+        shine('M-32,-2 Q-36,20 -30,40'),
+        sparkle(-60, -40, 8),
+        sparkle(62, -20, 7),
+        sparkle(56, 60, 6),
+      );
+      break;
+
+    case 8: // Mother Lode Mineral Water: fizzy teal water with ore crystals
+      glow = '#5ae0c8';
+      parts.push(
+        `<path d="M-12,-84 L12,-84 L12,-50 Q34,-40 34,-14 L34,70 Q34,78 26,78 L-26,78 Q-34,78 -34,70 L-34,-14 Q-34,-40 -12,-50 Z" fill="#2aa890" fill-opacity="0.85"/>`,
+        `<path d="M-30,78 L-20,46 L-10,62 L0,36 L12,58 L20,44 L30,78 Z" fill="#c8f0ff" ${stroke}/>`,
+        `<path d="M-20,46 L-16,62 M0,36 L2,60" stroke="#7fb8d8" stroke-width="2"/>`,
+        `<circle cx="-14" cy="0" r="4" fill="#e8fff8"/><circle cx="8" cy="-16" r="3" fill="#e8fff8"/><circle cx="16" cy="12" r="5" fill="#e8fff8"/><circle cx="-4" cy="24" r="3" fill="#e8fff8"/>`,
+        `<path d="M-12,-84 L12,-84 L12,-50 Q34,-40 34,-14 L34,70 Q34,78 26,78 L-26,78 Q-34,78 -34,70 L-34,-14 Q-34,-40 -12,-50 Z" fill="none" ${stroke}/>`,
+        `<rect x="-16" y="-98" width="32" height="16" rx="3" fill="#b87333" ${stroke}/>`,
+        shine('M-22,-20 L-22,30'),
+        sparkle(-58, -30, 7),
+        sparkle(58, 0, 7),
+      );
+      break;
+
+    case 9: // Starlight Whiskey: squat bottle of night sky
+      glow = '#a07aff';
+      parts.push(
+        `<path d="M-14,-74 L14,-74 L14,-46 L52,-30 L52,66 Q52,76 42,76 L-42,76 Q-52,76 -52,66 L-52,-30 L-14,-46 Z" fill="#1c1450"/>`,
+        `<path d="M-52,-10 L52,-10 L52,66 Q52,76 42,76 L-42,76 Q-52,76 -52,66 Z" fill="#3a2a8a"/>`,
+        sparkle(-24, 20, 6),
+        sparkle(16, 44, 5),
+        sparkle(30, 4, 4),
+        sparkle(-34, 56, 4),
+        `<path d="M-14,-74 L14,-74 L14,-46 L52,-30 L52,66 Q52,76 42,76 L-42,76 Q-52,76 -52,66 L-52,-30 L-14,-46 Z" fill="none" ${stroke}/>`,
+        `<rect x="-36" y="-2" width="72" height="30" fill="#efe2bf" ${stroke}/>`,
+        `<path d="M0,4 L4,12 L12,12 L6,18 L8,26 L0,21 L-8,26 L-6,18 L-12,12 L-4,12 Z" fill="#3a2a8a"/>`,
+        `<rect x="-18" y="-90" width="36" height="18" rx="4" fill="#9a6a3c" ${stroke}/>`,
+        sparkle(-66, -50, 8),
+        sparkle(64, -64, 9),
+        sparkle(70, 30, 6),
+      );
+      break;
+
+    case 10: // Bottled Sunrise: dawn light, corked
+      glow = '#ffd36b';
+      defs += `<linearGradient id="dawn" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ff6a2a"/><stop offset="0.5" stop-color="#ffb84a"/><stop offset="1" stop-color="#fff2b0"/></linearGradient>`;
+      for (let i = 0; i < 12; i++) {
+        const a = (i / 12) * Math.PI * 2;
+        parts.push(
+          `<path d="M${(Math.cos(a) * 66).toFixed(1)},${(14 + Math.sin(a) * 66).toFixed(1)} L${(Math.cos(a) * 92).toFixed(1)},${(14 + Math.sin(a) * 92).toFixed(1)}" stroke="#ffd36b" stroke-width="6" stroke-linecap="round" opacity="0.8"/>`,
+        );
+      }
+      parts.push(
+        `<path d="M-14,-62 L14,-62 L14,-38 Q56,-26 56,18 Q56,72 0,72 Q-56,72 -56,18 Q-56,-26 -14,-38 Z" fill="url(#dawn)"/>`,
+        `<circle cx="0" cy="34" r="22" fill="#fff6d0"/>`,
+        `<path d="M-50,40 Q0,30 50,40" fill="none" stroke="#c84a1a" stroke-width="4"/>`,
+        `<path d="M-14,-62 L14,-62 L14,-38 Q56,-26 56,18 Q56,72 0,72 Q-56,72 -56,18 Q-56,-26 -14,-38 Z" fill="none" ${stroke}/>`,
+        `<rect x="-18" y="-80" width="36" height="20" rx="4" fill="#9a6a3c" ${stroke}/>`,
+        shine('M-40,0 Q-42,-18 -26,-28'),
+      );
+      break;
+
+    default:
+      return potion(6);
   }
-  // Holy water gets a cross.
-  if (value === 10) {
-    parts.push(
-      `<path d="M0,6 L0,46 M-14,20 L14,20" stroke="#fff8d8" stroke-width="7" stroke-linecap="round"/>`,
-    );
-  }
-  // Sparkles increase with potency.
-  const sparkles = Math.round(t * 6);
-  for (let i = 0; i < sparkles; i++) {
-    const a = (i / Math.max(sparkles, 1)) * Math.PI * 2 + 0.6;
-    const x = Math.cos(a) * 74;
-    const y = 10 + Math.sin(a) * 74;
-    parts.push(
-      `<path d="M${x},${y - 7} L${x + 2},${y - 2} L${x + 7},${y} L${x + 2},${y + 2} L${x},${y + 7} L${x - 2},${y + 2} L${x - 7},${y} L${x - 2},${y - 2} Z" fill="#fff6c8"/>`,
-    );
-  }
+
+  const s = 0.84;
+  const body = `<g transform="translate(100 104) scale(${s.toFixed(3)})">${parts.join('')}</g>`;
   return svg(
-    `<g transform="translate(100 104) scale(${s.toFixed(3)})">${parts.join('')}</g>`,
-    value >= 8 ? glowDefs(liquid) : '',
+    (glow ? `<circle cx="100" cy="100" r="96" fill="url(#glow)"/>` : '') + body,
+    (glow ? glowDefs(glow) : '') + defs,
   );
 }
 

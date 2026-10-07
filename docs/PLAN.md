@@ -65,9 +65,10 @@ Pulp-fantasy creatures, critters at low values and legends at 11–14:
 No firearms. Pulp-fantasy frontier weapons, crude at low values and cursed or elemental relics near the top:
 2 Coyote Bone Shiv · 3 Railroad Spike Dirk · 4 Copper War Pick · 5 Cactus-Spiked Machete · 6 Stormlash Whip · 7 Brimstone Hatchet · 8 Gravedigger’s Spade-Axe · 9 Hellfire Saber · 10 Sundown Scythe
 
-### Potions (♥, heal 2–10)
+### Remedies (♥, heal 2–10)
 
-2 Canteen · 3 Sarsaparilla · 4 Camp Coffee · 5 Field Bandages · 6 Rotgut Whiskey · 7 Snake Oil · 8 Doc's Tonic · 9 Spirit Elixir · 10 Holy Water
+Trail food and drinks at low values, bottled miracles at the top:
+2 Prickly Pear Juice · 3 Sarsaparilla · 4 Cowboy Coffee · 5 Sweet Tea Jug · 6 Hot Spring Flask · 7 Silver Spring Water · 8 Mother Lode Mineral Water · 9 Starlight Whiskey · 10 Bottled Sunrise
 
 ---
 
@@ -165,7 +166,7 @@ To add real art:
 
 - **Monster:** a distinct creature silhouette per value (jackalope, scorpions, tumbleweed, harpy, wisp, bone snake, huckster, mine-cart mimic, golem, witch, ghost stagecoach, rock giant, sun-swallowing serpent). Eyes and auras intensify with the value, with a red damage badge.
 - **Weapon:** a distinct weapon silhouette per value (bone shiv, spike dirk, war pick, fanged machete, lightning whip, burning hatchet, haunted spade-axe, flaming saber, sunset scythe) with fire or lightning effects on the stronger ones, and a steel-blue attack badge.
-- **Potion:** bottle silhouette whose liquid level and glow scale with the value, with a green heal badge.
+- **Remedy:** a distinct container or object per value (cactus fruit and juice, soda bottle, coffee pot, tea jug, hip flask, silver vial, mineral-water bottle, starry whiskey, bottled sunrise). Glow and sparkle grow with the healing, with a green heal badge.
 
 Each placeholder also shows the item's name. The UI always draws the value badge **on top of** the art, so your real art doesn't need numbers painted in.
 
@@ -182,7 +183,7 @@ Portrait layout, one screen with no scrolling during play:
 │ ♥ 17/20  ▓▓▓▓▓▓▓░░   ⛏ 31 │  HUD: health bar, cards left in mine, chamber #
 ├───────────────────────────┤
 │   ┌───────┐  ┌───────┐    │
-│   │Rattler│  │ Tonic │    │  Room: 2×2 grid of tiles
+│   │Rattler│  │ Mother│    │  Room: 2×2 grid of tiles
 │   │  ⚔7   │  │  ✚8   │    │  (art + name + value badge)
 │   └───────┘  └───────┘    │
 │   ┌───────┐  ┌───────┐    │
@@ -197,7 +198,7 @@ Portrait layout, one screen with no scrolling during play:
 └───────────────────────────┘
 ```
 
-- **Tap a potion or weapon:** it resolves at once with a short animation. A potion that won't heal shows a "Already drank this room — will be wasted" warning on the tile before you tap.
+- **Tap a remedy or weapon:** it resolves at once with a short animation. A potion that won't heal shows a "Already drank this room — will be wasted" warning on the tile before you tap.
 - **Tap a monster with a weapon equipped:** a bottom sheet opens with two large buttons that show the damage up front, e.g. **"Stormlash Whip — take 1"** and **"Bare-handed — take 7"**. If the weapon isn't allowed, its button is disabled and explains why ("Too worn: limit ≤ 7"). With no weapon, the fight resolves at once. Tapping a card that would kill you asks for confirmation.
 - **Feedback:** health bar shake and red flash on damage, green pulse on heal, the slain monster sliding onto the weapon stack, and the remaining tile staying put while 3 new tiles deal in.
 - **End screen:** win or loss, the score from §2, a short run summary, best score, and "Ride again".
@@ -234,5 +235,6 @@ Each milestone is its own commit (or small set of commits) pushed to GitHub. I'l
 - **GitHub:** plain `git` (no GitHub CLI); remote https://github.com/plowdk51/weird-west-dungeon-crawl.
 - **Rules:** standard Scoundrel, no house rules.
 - **Monsters:** same pulp-fantasy tone, weird and adventurous rather than horrific; no guns; nothing drawn from real Indigenous belief.
+- **Remedies:** same tone; frontier food and drink becoming more magical as healing rises.
 - **Weapons:** no guns, and they should feel like weapons rather than everyday objects. Same pulp-fantasy Weird West vibe as the Bounty Hunter game, with names unique to this game.
 - **Art:** placeholder SVGs now; clubs and spades share art for now, with per-suit overrides supported.
