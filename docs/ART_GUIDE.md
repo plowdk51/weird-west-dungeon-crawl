@@ -93,9 +93,9 @@ Frontier remedies: trail food and drinks at low values, bottled miracles at the 
 
 ### UI
 
-| Key             | Used for                               | Recommendation                                                  |
-| --------------- | -------------------------------------- | --------------------------------------------------------------- |
-| `ui.background` | Full-screen background behind the game | Portrait, at least 1080×1920, dark enough for light text on top |
+| Key             | Used for                               | Recommendation                                                                      |
+| --------------- | -------------------------------------- | ----------------------------------------------------------------------------------- |
+| `ui.background` | Full-screen background behind the game | Portrait, at least 1024×1536 (ChatGPT tall size), dark enough for light text on top |
 
 ## Names and flavor text
 
