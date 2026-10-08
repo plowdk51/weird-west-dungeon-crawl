@@ -8,6 +8,7 @@ import {
   weaponLimit,
   type Action,
   type Card,
+  type EquippedWeapon,
   type GameEvent,
   type GameState,
   type Slot,
@@ -17,8 +18,14 @@ import { cardInfo, ROLE_LABEL } from '../content/catalog';
 import { loadBest, loadSave, recordScore, saveGame } from '../storage';
 import { describeEvent } from './messages';
 import { HOW_TO_PLAY } from './howToPlay';
+import { SLIDES, type Pieces } from './walkthrough';
 
-type Overlay = { kind: 'combat'; slot: Slot } | { kind: 'help' } | { kind: 'menu' } | null;
+type Overlay =
+  | { kind: 'combat'; slot: Slot }
+  | { kind: 'help'; slide: number }
+  | { kind: 'rules' }
+  | { kind: 'menu' }
+  | null;
 
 const SLOTS: Slot[] = [0, 1, 2, 3];
 const ICON = { monster: '☠︎', weapon: '⚔︎', potion: '✚︎' } as const;
@@ -38,6 +45,7 @@ export class App {
       document.documentElement.classList.add('has-bg');
     }
     root.addEventListener('click', (e) => this.onClick(e));
+    document.addEventListener('keydown', (e) => this.onKey(e));
     this.renderTitle();
   }
 
@@ -100,6 +108,13 @@ export class App {
         this.dispatch({ type: 'avoidRoom' });
         break;
       case 'help':
+        this.overlay = { kind: 'help', slide: 0 };
+        this.refresh();
+        break;
+      case 'slide':
+        this.stepSlide(Number(el.dataset.step));
+        break;
+      case 'rules':
       case 'menu':
         this.overlay = { kind: act };
         this.refresh();
@@ -109,6 +124,30 @@ export class App {
         this.refresh();
         break;
     }
+  }
+
+  private onKey(e: KeyboardEvent): void {
+    if (this.overlay?.kind !== 'help') return;
+    if (e.key === 'ArrowRight') this.stepSlide(1);
+    else if (e.key === 'ArrowLeft') this.stepSlide(-1);
+    else if (e.key === 'Escape') {
+      this.overlay = null;
+      this.refresh();
+    }
+  }
+
+  /** Swap the slide in place, so the sheet doesn't replay its entrance animation. */
+  private stepSlide(step: number): void {
+    if (this.overlay?.kind !== 'help') return;
+    const slide = Math.min(Math.max(this.overlay.slide + step, 0), SLIDES.length - 1);
+    if (slide === this.overlay.slide) return;
+    this.overlay = { kind: 'help', slide };
+    const sheet = this.root.querySelector('.sheet--walkthrough');
+    if (!sheet) return this.refresh();
+    sheet.innerHTML = this.walkthrough(slide);
+    // Keep keyboard focus on the button that was pressed (or Next/Got it if it vanished).
+    const same = sheet.querySelector<HTMLElement>(`[data-step="${step}"]:not(:disabled)`);
+    (same ?? sheet.querySelector<HTMLElement>('.walkthrough-nav .btn--primary'))?.focus();
   }
 
   private onTile(slot: Slot): void {
@@ -147,7 +186,8 @@ export class App {
           <button class="btn btn--ghost" data-act="help">How to play</button>
           ${best !== null ? `<p class="best">Best score: <b>${best}</b></p>` : ''}
         </div>
-        ${this.overlay?.kind === 'help' ? this.helpSheet() : ''}
+        ${this.overlay?.kind === 'help' ? this.helpSheet(this.overlay.slide) : ''}
+        ${this.overlay?.kind === 'rules' ? this.rulesSheet() : ''}
       </div>`;
   }
 
@@ -165,7 +205,7 @@ export class App {
           ${SLOTS.map((slot) => this.tile(s, slot, dealt.has(slot))).join('')}
         </main>
         <p class="log" aria-live="polite">${esc(this.log)}</p>
-        ${this.weaponPanel(s)}
+        ${this.weaponPanel(s.weapon)}
         <footer class="actions">
           <button class="btn btn--avoid" data-act="avoid" ${avoidReason ? 'disabled' : ''}>
             Sneak past this chamber
@@ -182,22 +222,27 @@ export class App {
   // ------------------------------------------------------------ pieces
 
   private hud(s: GameState): string {
-    const pct = (s.health / MAX_HEALTH) * 100;
-    const tone = pct > 50 ? 'ok' : pct > 25 ? 'warn' : 'bad';
     return `
       <header class="hud">
-        <div class="health health--${tone}" role="meter" aria-label="Health"
-             aria-valuemin="0" aria-valuemax="${MAX_HEALTH}" aria-valuenow="${s.health}">
-          <span class="health-icon" aria-hidden="true">♥︎</span>
-          <div class="health-bar"><div class="health-fill" style="width:${pct}%"></div></div>
-          <span class="health-num">${s.health}<small>/${MAX_HEALTH}</small></span>
-        </div>
+        ${this.healthBar(s.health)}
         <div class="hud-meta">
           <span>Chamber ${s.roomNumber}</span>
           <span>${s.dungeon.length} left below</span>
           <button class="icon-btn" data-act="menu" aria-label="Menu">☰</button>
         </div>
       </header>`;
+  }
+
+  private healthBar(health: number): string {
+    const pct = (health / MAX_HEALTH) * 100;
+    const tone = pct > 50 ? 'ok' : pct > 25 ? 'warn' : 'bad';
+    return `
+        <div class="health health--${tone}" role="meter" aria-label="Health"
+             aria-valuemin="0" aria-valuemax="${MAX_HEALTH}" aria-valuenow="${health}">
+          <span class="health-icon" aria-hidden="true">♥︎</span>
+          <div class="health-bar"><div class="health-fill" style="width:${pct}%"></div></div>
+          <span class="health-num">${health}<small>/${MAX_HEALTH}</small></span>
+        </div>`;
   }
 
   private tile(s: GameState, slot: Slot, dealt: boolean): string {
@@ -210,11 +255,20 @@ export class App {
       <button class="tile tile--${card.role} ${dealt ? 'tile--dealt' : ''} ${wasted ? 'tile--muted' : ''}"
               style="--deal-delay:${slot * 70}ms" data-act="tile" data-slot="${slot}"
               aria-label="${esc(`${info.name}, ${ROLE_LABEL[card.role]} ${card.value}`)}">
-        ${this.art(card)}
-        <span class="badge badge--${card.role}">${ICON[card.role]} ${card.value}</span>
-        <span class="tile-name">${esc(info.name)}</span>
-        ${note}
+        ${this.tileFace(card, note)}
       </button>`;
+  }
+
+  private tileFace(card: Card, note: string): string {
+    return `
+        ${this.art(card)}
+        ${this.badge(card)}
+        <span class="tile-name">${esc(cardInfo(card).name)}</span>
+        ${note}`;
+  }
+
+  private badge(card: Card): string {
+    return `<span class="badge badge--${card.role}">${ICON[card.role]} ${card.value}</span>`;
   }
 
   private art(card: Card): string {
@@ -224,8 +278,7 @@ export class App {
       : `<span class="art"></span>`;
   }
 
-  private weaponPanel(s: GameState): string {
-    const w = s.weapon;
+  private weaponPanel(w: EquippedWeapon | null): string {
     if (!w) {
       return `<section class="weapon weapon--none"><span class="weapon-label">Bare hands</span>
         <span class="weapon-hint">Pick up a weapon to soften the blows.</span></section>`;
@@ -251,7 +304,8 @@ export class App {
   private overlayHtml(s: GameState): string {
     if (s.status !== 'playing') return this.endSheet(s);
     if (!this.overlay) return '';
-    if (this.overlay.kind === 'help') return this.helpSheet();
+    if (this.overlay.kind === 'help') return this.helpSheet(this.overlay.slide);
+    if (this.overlay.kind === 'rules') return this.rulesSheet();
     if (this.overlay.kind === 'menu') return this.menuSheet();
     return this.combatSheet(s, this.overlay.slot);
   }
@@ -302,13 +356,63 @@ export class App {
       </div>`;
   }
 
-  private helpSheet(): string {
+  /** Mock-up pieces for the walkthrough, built from the same markup as the real game. */
+  private readonly pieces: Pieces = {
+    card: (card, { note, muted, focus, dealt } = {}) => `
+      <div class="tile tile--mini tile--${card.role} ${muted ? 'tile--muted' : ''} ${focus ? 'tile--focus' : ''}
+                  ${dealt !== undefined ? 'tile--dealt' : ''}" style="--deal-delay:${(dealt ?? 0) * 120 + 150}ms">
+        ${this.tileFace(card, note ? `<span class="tile-note">${esc(note)}</span>` : '')}
+      </div>`,
+    badge: (card) => this.badge(card),
+    health: (health) => this.healthBar(health),
+    weapon: (weapon) => this.weaponPanel(weapon),
+  };
+
+  private helpSheet(slide: number): string {
     return `
       <div class="scrim" data-act="close"></div>
-      <div class="sheet sheet--tall" role="dialog" aria-label="How to play">
-        <h2>How to play</h2>
+      <div class="sheet sheet--walkthrough" role="dialog" aria-label="How to play">
+        ${this.walkthrough(slide)}
+      </div>`;
+  }
+
+  private walkthrough(i: number): string {
+    const slide = SLIDES[i]!;
+    const last = i === SLIDES.length - 1;
+    const dots = SLIDES.map((_, n) => `<span class="dot ${n === i ? 'dot--on' : ''}"></span>`).join(
+      '',
+    );
+    return `
+      <div class="walkthrough-head">
+        <span class="eyebrow">How to play · ${i + 1} of ${SLIDES.length}</span>
+        <button class="link-btn" data-act="rules">Full rules</button>
+      </div>
+      <div class="slide" aria-live="polite">
+        <div class="slide-scene" aria-hidden="true">${slide.scene(this.pieces)}</div>
+        <h2>${slide.title}</h2>
+        <p class="slide-body">${slide.body}</p>
+      </div>
+      <nav class="walkthrough-nav">
+        <button class="btn" data-act="slide" data-step="-1" ${i === 0 ? 'disabled' : ''}>Back</button>
+        <div class="dots" aria-hidden="true">${dots}</div>
+        ${
+          last
+            ? `<button class="btn btn--primary" data-act="close">Got it</button>`
+            : `<button class="btn btn--primary" data-act="slide" data-step="1">Next</button>`
+        }
+      </nav>`;
+  }
+
+  private rulesSheet(): string {
+    return `
+      <div class="scrim" data-act="close"></div>
+      <div class="sheet sheet--tall" role="dialog" aria-label="Full rules">
+        <h2>Full rules</h2>
         <div class="help">${HOW_TO_PLAY}</div>
-        <div class="sheet-actions"><button class="btn btn--primary" data-act="close">Got it</button></div>
+        <div class="sheet-actions">
+          <button class="btn btn--primary" data-act="close">Got it</button>
+          <button class="btn btn--ghost" data-act="help">Back to the walkthrough</button>
+        </div>
       </div>`;
   }
 
